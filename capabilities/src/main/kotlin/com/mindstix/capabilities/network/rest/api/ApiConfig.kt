@@ -6,10 +6,16 @@ package com.mindstix.capabilities.network.rest.api
 
 import com.mindstix.core.models.SampleRequest
 import com.mindstix.core.models.SampleResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 /**
@@ -18,18 +24,18 @@ import retrofit2.http.Path
  * @author Abhijeet Kokane
  */
 interface ApiConfig {
-    /**
-     * Example API call to retrieve account information.
-     *
-     * @param userId The user ID for which the account information is requested.
-     * @param authToken The authorization token for authentication.
-     * @param sampleRequest The request body containing sample data.
-     * @return A [Response] containing the [SampleResponse] or null.
-     */
-    @POST("v1/path/{userId}/account")
-    suspend fun getAccount(
-        @Path("userId") userId: String,
-        @Header("Authorization") authToken: String,
-        @Body sampleRequest: SampleRequest,
-    ): Response<SampleResponse?>
+
+    @Multipart
+    @POST("facepp/v1/skinanalyze")
+    suspend fun analyzeSkin(
+        @Part("api_key") apiKey: RequestBody = RequestBody.create(
+            "text/plain".toMediaTypeOrNull(),
+            "d6Mv_OjN0RYTOcNWW_TIgol4M9FsGmhC"
+        ),
+        @Part("api_secret") apiSecret: RequestBody = RequestBody.create(
+            "text/plain".toMediaTypeOrNull(),
+            "d6Mv_OjN0RYTOcNWW_TIgol4M9FsGmhC"
+        ),
+        @Part imageFile: MultipartBody.Part
+    ): Call<String>
 }

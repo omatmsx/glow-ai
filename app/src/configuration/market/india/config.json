@@ -1,18 +1,22 @@
 {
   "dev": {
     "base_url": "developer",
-    "a":"a"
+    "a":"a",
+    "skin_api_key": "skin_api_key"
   },
   "qa": {
     "base_url": "qa",
-    "a":"a"
+    "a":"a",
+    "skin_api_key": "skin_api_key"
   },
   "uat": {
     "base_url": "uat",
-    "a":"a"
+    "a":"a",
+    "skin_api_key": "skin_api_key"
   },
   "prod": {
     "base_url": "prod",
-    "a":"a"
+    "a":"a",
+    "skin_api_key": "skin_api_key"
   }
 }
