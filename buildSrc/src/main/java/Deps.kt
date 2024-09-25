@@ -57,4 +57,7 @@ object Deps {
 
     // Splash Screen
     const val splash_screen =  "androidx.core:core-splashscreen:${Versions.splash_screen}"
+
+    //Database
+    const val room_db = "androidx.room:room-runtime:${Versions.db_version}"
 }

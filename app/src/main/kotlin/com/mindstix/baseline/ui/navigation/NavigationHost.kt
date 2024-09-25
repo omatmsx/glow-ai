@@ -33,7 +33,7 @@ fun NavigationHost(
     // NavHost is used to define the navigation graph with various destination composable functions.
     NavHost(
         navController = navController,
-        startDestination = Destinations.LoginDestination.route,
+        startDestination = Destinations.HomeDestination.route,
         modifier = Modifier.fillMaxSize(),
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },

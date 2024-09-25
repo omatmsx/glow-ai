@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
  */
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     // Determine the color scheme based on the selected theme (dark or light)

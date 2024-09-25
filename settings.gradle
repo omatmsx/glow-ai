@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 }
 
 // Root project configuration
-rootProject.name = "baseline"
+rootProject.name = "glow-ai"
 
 // Project inclusion configuration
 include ':app' // Main application module

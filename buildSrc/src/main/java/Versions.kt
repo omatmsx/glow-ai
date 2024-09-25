@@ -55,4 +55,7 @@ object Versions {
 
     // Splash Screen
     const val splash_screen = "1.0.0"
+
+    //Database
+    const val db_version = "2.6.1"
 }

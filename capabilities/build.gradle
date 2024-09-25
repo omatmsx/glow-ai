@@ -87,4 +87,7 @@ dependencies {
     implementation Deps.retrofit_gson
     implementation Deps.okhttp
     implementation Deps.okhttpLogging
+
+    //Database
+    implementation Deps.room_db
 }
