@@ -12,7 +12,11 @@ import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +25,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.mindstix.home.intent.ClickPictureScreenIntent
+import com.mindstix.home.intent.ClickPictureScreenState
+import com.mindstix.home.intent.ClickPictureScreenViewStates
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -29,7 +35,8 @@ import java.util.Locale
 @SuppressLint("Recycle")
 @Composable
 fun ClickPictureScreen(
-    userIntent: (ClickPictureScreenIntent) -> Unit
+    userIntent: (ClickPictureScreenIntent) -> Unit,
+    state: ClickPictureScreenState
 ) {
     val context = LocalContext.current
 
@@ -58,6 +65,17 @@ fun ClickPictureScreen(
             }
         }
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
+
+
+    LaunchedEffect(state) {
+        if (state.ageScreenViewState is ClickPictureScreenViewStates.ErrorState) {
+            val errorState = state.ageScreenViewState as ClickPictureScreenViewStates.ErrorState
+            snackbarHostState.showSnackbar(errorState.message)
+        }
+    }
+
     // ActivityResultLauncher to pick an image from the gallery
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -72,39 +90,47 @@ fun ClickPictureScreen(
         }
     }
 
-    FaceDetectionUI(
-        onGalleryClick = {
-            galleryLauncher.launch("image/*")
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(snackbarHostState) // Pass the SnackbarHostState to the SnackbarHost
         },
-        onCameraClick = {
-            val permissionCheckResult =
-                ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
-            if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
+    ) { a ->
 
-                cameraLauncher.launch(uri)
-            } else {
-                permissionLauncher.launch(Manifest.permission.CAMERA)
-            }
-        },
-        onContinueClick = {
+        FaceDetectionUI(
+            onGalleryClick = {
+                galleryLauncher.launch("image/*")
+            },
+            onCameraClick = {
+                val permissionCheckResult =
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+                if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
 
-            val contentResolver = context.contentResolver
-            val fileName = getFileName(context, capturedImage)
-
-            contentResolver.openInputStream(capturedImage)?.use { inputStream ->
-                // Create a temporary file from InputStream
-                val tempFile = File(context.cacheDir,fileName )
-                tempFile.outputStream().use { outputStream ->
-                    inputStream.copyTo(outputStream)
+                    cameraLauncher.launch(uri)
+                } else {
+                    permissionLauncher.launch(Manifest.permission.CAMERA)
                 }
+            },
+            onContinueClick = {
 
-                userIntent.invoke(
-                    ClickPictureScreenIntent.NavigateToAgeScreen(tempFile)
-                )
-            }
-        },
-        faceImagePainter = capturedImage,
-    )
+                val contentResolver = context.contentResolver
+                val fileName = getFileName(context, capturedImage)
+
+                contentResolver.openInputStream(capturedImage)?.use { inputStream ->
+                    // Create a temporary file from InputStream
+                    val tempFile = File(context.cacheDir, fileName)
+                    tempFile.outputStream().use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+
+                    userIntent.invoke(
+                        ClickPictureScreenIntent.NavigateToAgeScreen(tempFile)
+                    )
+                }
+            },
+            faceImagePainter = capturedImage,
+            state
+        )
+    }
 }
 
 fun Context.createImageFile(): File {

@@ -85,4 +85,7 @@ dependencies {
     kapt Deps.hilt_compiler
 
     implementation Deps.retrofit_gson
+
+
+    implementation "com.airbnb.android:lottie-compose:6.1.0"
 }

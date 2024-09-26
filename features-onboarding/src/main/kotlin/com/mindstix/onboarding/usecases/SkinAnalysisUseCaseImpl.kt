@@ -1,5 +1,6 @@
 package com.mindstix.onboarding.usecases
 
+import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.mapper.SkinAnalysisMapper
 import com.mindstix.onboarding.repository.SkinAnalysisRepository
 import com.mindstix.onboarding.utils.SharedPreferenceManager
@@ -13,7 +14,7 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
 
 ) :
     SkinAnalysisUseCase {
-    override suspend fun getSkinAnalysis(imageFilePath: File) {
+    override suspend fun getSkinAnalysis(imageFilePath: File): SkinAnalysisEntity {
         val response = skinAnalysisRepository.getSkinAnalysis(imageFilePath)
         val body = response.body()
 
@@ -29,9 +30,15 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
 
         skinAnalysisRepository.saveSkinAnalysis(skinAnalysisEntity)
 
+        return skinAnalysisEntity
+    }
+
+    override suspend fun getSkinCare(skinAnalysisEntity: SkinAnalysisEntity) {
         val skinCare = skinAnalysisRepository.getSkinCareRoutine(skinAnalysisEntity)
         skinAnalysisRepository.saveSkinCareRoutine(skinCare)
+    }
 
+    override suspend fun getRecommendedProducts(skinAnalysisEntity: SkinAnalysisEntity) {
         val recommendedProducts = skinAnalysisRepository.getRecommendedProducts(skinAnalysisEntity)
         skinAnalysisRepository.saveSkincareProductEntity(recommendedProducts)
 
