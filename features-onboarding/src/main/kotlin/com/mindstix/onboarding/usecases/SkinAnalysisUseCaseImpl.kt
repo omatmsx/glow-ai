@@ -1,6 +1,7 @@
 package com.mindstix.onboarding.usecases
 
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
+import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.mapper.SkinAnalysisMapper
 import com.mindstix.onboarding.repository.SkinAnalysisRepository
 import com.mindstix.onboarding.utils.SharedPreferenceManager
@@ -45,12 +46,17 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
         sharedPreferenceManager.isLoggedIn = true
     }
 
+    override suspend fun getListOfRecommendedProduct(): List<SkincareProductEntity> {
+        val response = skinAnalysisRepository.getAllSuggestedProduct()
+        println("response1: $response")
+        return response
+    }
+
     override suspend fun getSkinAnalysisDataFromDB(): List<SkinAnalysisEntity> {
 
         val response = skinAnalysisRepository.getAllSkinAnalyses()
         println("response1: $response")
         return response
     }
-
 
 }

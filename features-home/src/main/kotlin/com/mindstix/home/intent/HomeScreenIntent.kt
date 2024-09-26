@@ -7,6 +7,7 @@ import com.mindstix.home.model.HomeScreenDataModel
 
 sealed class HomeScreenIntent : UserIntent {
     object GetSkinAnalysisData : HomeScreenIntent()
+    object GetRecommendedProducts : HomeScreenIntent()
 }
 
 sealed class HomeScreenNavEffect : NavEffect {

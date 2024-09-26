@@ -31,32 +31,6 @@ import com.mindstix.home.viewmodel.HomeScreenViewModel
 fun HomeScreen(
     homeScreenViewModel: HomeScreenViewModel, userIntent: (HomeScreenIntent) -> Unit
 ) {
-//    CameraGalleryProfileInfo()
-    /*
-        val sampleItems = listOf(
-            DiagnosisDataModel(
-                conditionName = "Acne",
-                confidence = 20,
-                imagePainter = painterResource(id = R.drawable.ic_acne) // Replace with your image
-            ), DiagnosisDataModel(
-                conditionName = "Acne1",
-                confidence = 20,
-                imagePainter = painterResource(id = R.drawable.ic_acne1) // Replace with your image
-            ), DiagnosisDataModel(
-                conditionName = "Acne2",
-                confidence = 20,
-                imagePainter = painterResource(id = R.drawable.ic_acne2) // Replace with your image
-            ), DiagnosisDataModel(
-                conditionName = "Acne3",
-                confidence = 20,
-                imagePainter = painterResource(id = R.drawable.ic_acne3) // Replace with your image
-            ), DiagnosisDataModel(
-                conditionName = "Acne4",
-                confidence = 20,
-                imagePainter = painterResource(id = R.drawable.ic_acne4) // Replace with your image
-            )
-        )
-    */
     val skinAnalyses by homeScreenViewModel.skinAnalysesState
     // Map the values into a list of specific fields
     val mappedSkinAnalyses = skinAnalyses.map { analysis ->
@@ -99,9 +73,14 @@ fun HomeScreen(
         )
     }
 
+    val recommendedProduct by homeScreenViewModel.skinRecommendedProduct
+
     LaunchedEffect(true) {
         userIntent.invoke(
             HomeScreenIntent.GetSkinAnalysisData
+        )
+        userIntent.invoke(
+            HomeScreenIntent.GetRecommendedProducts
         )
     }
     LazyColumn(
@@ -115,7 +94,7 @@ fun HomeScreen(
             DiagnosisList(items = mappedSkinAnalyses) {}
         }
         item {
-            RecommendedProductsUI()
+            RecommendedProductsUI(recommendedProduct)
         }
         item {
 //            SkinCareRoutineUI()

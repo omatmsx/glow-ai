@@ -19,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,38 +28,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
+import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
-import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.core.R
-import com.mindstix.home.view.dashboard.modal.RecommendedProducts
 
 
 @Composable
-fun RecommendedProductsUI() {
-    val recommendedProductList = listOf<RecommendedProducts>(
-        RecommendedProducts(
-            productName = "Cetaphil Skin cleaner",
-            productImg = R.drawable.ic_productimage,
-        ),
-        RecommendedProducts(
-            productName = "La Roche-Posay Effaclar Purifying Foaming Gel",
-            productImg = R.drawable.ic_productimage,
-        ),
-        RecommendedProducts(
-            productName = "Cetaphil Skin cleaner",
-            productImg = R.drawable.ic_productimage,
-        ),
-        RecommendedProducts(
-            productName = "La Roche-Posay Effaclar Purifying",
-            productImg = R.drawable.ic_productimage,
-        ),
-        RecommendedProducts(
-            productName = "Cetaphil Skin cleaner",
-            productImg = R.drawable.ic_productimage,
-        ),
+fun RecommendedProductsUI(recommendedProduct: List<SkincareProductEntity>) {
+    val recommendedProductList = recommendedProduct
+    val productImgList = listOf(
+        R.drawable.ic_essikaproduct,
+        R.drawable.ic_productimage,
+        R.drawable.ic_vitaminc,
+        R.drawable.ic_pillogram,
+        R.drawable.ic_minimalist,
     )
-
-
 
     Column(
         modifier = Modifier
@@ -74,13 +59,16 @@ fun RecommendedProductsUI() {
 
         // Horizontal list of products
         LazyRow(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             // Example of 4 items
             items(recommendedProductList) { item ->
-                ProductCard(productName = item.productName,
-                    productImg = item.productImg, // Replace with your product image resource
-                    onQuestionMarkClick = { /* Handle click */ })
+                val randomImage = remember { productImgList.random() }
+                ProductCard(
+                    productName = item.productName, productImg = randomImage
+                ) // Replace with your product image resource
+                { /* Handle click */ }
             }
         }
     }
@@ -108,12 +96,13 @@ fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () ->
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
-                    painter = painterResource(id = productImg), // Replace with your product image
+                    painter = rememberImagePainter(data = productImg), // Replace with your product image
                     contentDescription = "Product Image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(top = 20.dp)
                         .height(100.dp)
+                        .fillMaxWidth()
                         .align(Alignment.TopCenter)
                         .clip(shape = RoundedCornerShape(16.dp))
                 )

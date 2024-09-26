@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
+import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.core.base.BaseViewModel
 import com.mindstix.home.intent.HomeScreenIntent
 import com.mindstix.home.intent.HomeScreenNavEffect
@@ -30,6 +31,9 @@ class HomeScreenViewModel @Inject constructor(
     var skinAnalysesState = mutableStateOf<List<SkinAnalysisEntity>>(emptyList())
         private set
 
+    var skinRecommendedProduct = mutableStateOf<List<SkincareProductEntity>>(emptyList())
+        private set
+
     override fun createInitialState(): HomeScreenState {
         return HomeScreenState(HomeScreenViewStates.UnInitialized)
     }
@@ -44,6 +48,24 @@ class HomeScreenViewModel @Inject constructor(
                             skinAnalysisUseCase.getSkinAnalysisDataFromDB() // Await the result
                         skinAnalysesState.value = skinAnalyses
                         Log.d("SkinAnalyses", skinAnalyses.toString())  // Log the response
+                    } catch (e: Exception) {
+                        Log.e("Error", "Error fetching skin analyses", e)
+                    } finally {
+                        progressLoader(false)
+                    }
+                }
+            }
+
+            is HomeScreenIntent.GetRecommendedProducts -> {
+                viewModelScope.launch {
+                    try {
+                        progressLoader(true)
+                        val recommendedProduct =
+                            skinAnalysisUseCase.getListOfRecommendedProduct() // Await the result
+                        skinRecommendedProduct.value = recommendedProduct
+                        Log.d(
+                            "skin Recommended Product", recommendedProduct.toString()
+                        )  // Log the response
                     } catch (e: Exception) {
                         Log.e("Error", "Error fetching skin analyses", e)
                     } finally {
