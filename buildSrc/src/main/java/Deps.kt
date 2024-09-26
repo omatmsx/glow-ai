@@ -62,4 +62,7 @@ object Deps {
 
     //Database
     const val room_db = "androidx.room:room-runtime:${Versions.db_version}"
+    const val room_compiler_db = "androidx.room:room-compiler:${Versions.db_version}"
+    const val room_ktx_db = "androidx.room:room-ktx:${Versions.db_version}"
+
 }

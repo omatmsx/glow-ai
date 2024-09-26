@@ -4,9 +4,10 @@ import com.mindstix.core.base.NavEffect
 import com.mindstix.core.base.UserIntent
 import com.mindstix.core.base.ViewState
 import com.mindstix.home.model.ClickPictureScreenDataModel
+import java.io.File
 
 sealed class ClickPictureScreenIntent : UserIntent {
-    data object NavigateToAgeScreen: ClickPictureScreenIntent()
+    data class NavigateToAgeScreen(val imagePath: File): ClickPictureScreenIntent()
 }
 
 sealed class ClickPictureScreenNavEffect : NavEffect {

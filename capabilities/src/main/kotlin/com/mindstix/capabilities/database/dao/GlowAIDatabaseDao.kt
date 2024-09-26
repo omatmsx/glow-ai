@@ -10,7 +10,7 @@ import com.mindstix.capabilities.database.utils.USER_TABLE
 @Dao
 abstract class GlowAIDatabaseDao {
     @Query("SELECT * FROM $USER_TABLE")
-    internal abstract suspend fun fetchNotificationsListData(): List<UserDataEntity>?
+    internal abstract suspend fun fetchNotificationsListData(): UserDataEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertUserDataEntity(notificationEntity: UserDataEntity)

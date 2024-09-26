@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,7 +35,7 @@ fun ClickPictureScreen(
 
     val file = context.createImageFile()
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
-    val url = FileProvider.getUriForFile(
+    var uri = FileProvider.getUriForFile(
         context, "${context.packageName}.fileprovider", file
     )
 
@@ -44,14 +45,14 @@ fun ClickPictureScreen(
     }
     // Set up the launcher for capturing the image
     val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
-        capturedImage = url
+        capturedImage = uri
     }
 
     val permissionLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
                 Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
-                cameraLauncher.launch(url)
+                cameraLauncher.launch(uri)
             } else {
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
@@ -67,7 +68,6 @@ fun ClickPictureScreen(
 
         // Load the selected image as Bitmap
         uri?.let {
-            val inputStream = context.contentResolver.openInputStream(uri)
             bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
         }
     }
@@ -81,15 +81,27 @@ fun ClickPictureScreen(
                 ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
             if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
 
-                cameraLauncher.launch(url)
+                cameraLauncher.launch(uri)
             } else {
                 permissionLauncher.launch(Manifest.permission.CAMERA)
             }
         },
         onContinueClick = {
-            userIntent.invoke(
-                ClickPictureScreenIntent.NavigateToAgeScreen
-            )
+
+            val contentResolver = context.contentResolver
+            val fileName = getFileName(context, capturedImage)
+
+            contentResolver.openInputStream(capturedImage)?.use { inputStream ->
+                // Create a temporary file from InputStream
+                val tempFile = File(context.cacheDir,fileName )
+                tempFile.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+
+                userIntent.invoke(
+                    ClickPictureScreenIntent.NavigateToAgeScreen(tempFile)
+                )
+            }
         },
         faceImagePainter = capturedImage,
     )
@@ -104,4 +116,16 @@ fun Context.createImageFile(): File {
         ".jpg", /* suffix */
         storageDir /* directory */
     )
+}
+
+@SuppressLint("Range")
+fun getFileName(context: Context, uri: Uri): String {
+    var fileName = System.currentTimeMillis().toString()
+    val cursor = context.contentResolver.query(uri, null, null, null, null)
+    cursor?.use {
+        if (it.moveToFirst()) {
+            fileName = it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+    }
+    return fileName
 }

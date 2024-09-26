@@ -6,18 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mindstix.capabilities.database.dao.GlowAIDatabaseDao
+import com.mindstix.capabilities.database.dao.SkinAnalysisDao
+import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.database.entities.UserDataEntity
 import com.mindstix.capabilities.database.utils.Converters
 import com.mindstix.core.logger.Logger
 import java.util.concurrent.Executors
 
-/**
- * This class defines the Room database for the application.
- * It includes the entities and the version of the database.
- */
 @Database(
     entities = [
         UserDataEntity::class,
+        SkinAnalysisEntity::class
     ],
     version = 2,
     exportSchema = false,
@@ -25,12 +24,8 @@ import java.util.concurrent.Executors
 @TypeConverters(Converters::class) // Define the type converters for custom types.
 abstract class GlowAIDatabase : RoomDatabase() {
 
-    /**
-     * Abstract method to get the GlowAIDatabaseDao.
-     *
-     * @return An instance of GlowAIDatabaseDao.
-     */
     abstract fun getDataAccessObject(): GlowAIDatabaseDao
+    abstract fun getSkinAnalysisDao(): SkinAnalysisDao
 
     companion object {
         private const val DB_NAME = "GlowAI-Database.db" // Name of the database.
@@ -39,24 +34,11 @@ abstract class GlowAIDatabase : RoomDatabase() {
         private var instance: GlowAIDatabase? = null // Volatile instance of the database.
         private val LOCK = Any() // Lock for synchronization.
 
-        /**
-         * Operator function to get the database instance.
-         *
-         * @param context The application context.
-         * @return The singleton instance of GlowAIDatabase.
-         */
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: buildDatabase(context).also {
                 instance = it
             }
         }
-
-        /**
-         * Builds the Room database.
-         *
-         * @param context The application context.
-         * @return The built instance of GlowAIDatabase.
-         */
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             GlowAIDatabase::class.java,

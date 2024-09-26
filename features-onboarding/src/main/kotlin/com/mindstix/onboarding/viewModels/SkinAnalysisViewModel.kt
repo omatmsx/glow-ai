@@ -44,7 +44,7 @@ constructor(
 
     private fun fetchDashboardData() {
         viewModelScope.launch(Dispatchers.IO) {
-            val loginDataModel = skinAnalysisUseCase.getSkinAnalysis("")
+
         }
     }
 

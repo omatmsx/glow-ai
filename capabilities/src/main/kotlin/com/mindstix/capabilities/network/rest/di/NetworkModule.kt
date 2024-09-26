@@ -88,7 +88,7 @@ object NetworkModule {
     ): Retrofit =
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("") // TODO: Provide base URL
+            .baseUrl("https://api-us.faceplusplus.com/")
             .client(okHttpClient)
             .build()
 

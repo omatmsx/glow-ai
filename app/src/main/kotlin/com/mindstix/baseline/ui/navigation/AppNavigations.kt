@@ -194,7 +194,7 @@ fun NavGraphBuilder.ageScreenNavigationGraph(
 fun NavGraphBuilder.clickPictureScreenNavigationGraph(
     navController: NavHostController,
     baseComponentState: BaseComponentState,
-){
+) {
     composable(Destinations.ClickPictureScreenDestination.route) { _ ->
 
         // Show bottom bar and hide floating action button for the settings screen
