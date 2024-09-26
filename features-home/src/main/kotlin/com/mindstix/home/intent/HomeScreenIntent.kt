@@ -6,7 +6,7 @@ import com.mindstix.core.base.ViewState
 import com.mindstix.home.model.HomeScreenDataModel
 
 sealed class HomeScreenIntent : UserIntent {
-
+    object GetSkinAnalysisData : HomeScreenIntent()
 }
 
 sealed class HomeScreenNavEffect : NavEffect {

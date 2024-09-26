@@ -1,5 +1,6 @@
 package com.mindstix.onboarding.usecases
 
+import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.mapper.SkinAnalysisMapper
 import com.mindstix.onboarding.repository.SkinAnalysisRepository
 import com.mindstix.onboarding.utils.SharedPreferenceManager
@@ -11,8 +12,7 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
     val skinAnalysisRepository: SkinAnalysisRepository,
     private val sharedPreferenceManager: SharedPreferenceManager
 
-) :
-    SkinAnalysisUseCase {
+) : SkinAnalysisUseCase {
     override suspend fun getSkinAnalysis(imageFilePath: File) {
         val response = skinAnalysisRepository.getSkinAnalysis(imageFilePath)
         val body = response.body()
@@ -21,7 +21,8 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
             var errorMessage = "Api failed"
             try {
                 errorMessage = JSONObject(response.errorBody()!!.charStream().readText()).toString()
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
             throw Throwable(message = errorMessage)
         }
 
@@ -37,5 +38,13 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
 
         sharedPreferenceManager.isLoggedIn = true
     }
+
+    override suspend fun getSkinAnalysisDataFromDB(): List<SkinAnalysisEntity> {
+
+        val response = skinAnalysisRepository.getAllSkinAnalyses()
+        println("response1: $response")
+        return response
+    }
+
 
 }

@@ -27,7 +27,7 @@ class SkinAnalysisRepository @Inject constructor(
 
     ) {
 
-    suspend fun getSkinAnalysis(imageFile:File): Response<SkinAnalysisReportModel> {
+    suspend fun getSkinAnalysis(imageFile: File): Response<SkinAnalysisReportModel> {
         val mimeType = when (imageFile.extension.lowercase()) {
             "png" -> "image/png"
             "jpg", "jpeg" -> "image/jpeg"
@@ -42,6 +42,10 @@ class SkinAnalysisRepository @Inject constructor(
         skinAnalysisDao.insertSkinAnalysis(body)
     }
 
+    suspend fun getAllSkinAnalyses(): List<SkinAnalysisEntity> {
+        return skinAnalysisDao.getAllSkinAnalyses()
+    }
+
     suspend fun saveSkinCareRoutine(body: List<SkinCareRoutineEntity>) {
         skinCareRoutineDao.insertRoutine(body)
     }
@@ -53,16 +57,24 @@ class SkinAnalysisRepository @Inject constructor(
 
     suspend fun getSkinCareRoutine(data: SkinAnalysisEntity): List<SkinCareRoutineEntity> {
         val convertedData = Gson().toJson(data)
-        val response = apiConfig.createChatCompletion(ChatCompletionRequest.getObject(SkinCareQueryBuilder.getQuery(convertedData)))
+        val response = apiConfig.createChatCompletion(
+            ChatCompletionRequest.getObject(
+                SkinCareQueryBuilder.getQuery(convertedData)
+            )
+        )
         var temp = response?.body()?.choices?.first()?.message?.content.toString()
         temp = temp.substring(7, temp.length - 3)
         val skincareTasks = Gson().fromJson(temp, Array<SkinCareRoutineEntity>::class.java).toList()
         return skincareTasks
     }
 
-    suspend fun getRecommendedProducts(data:SkinAnalysisEntity): List<SkincareProductEntity> {
+    suspend fun getRecommendedProducts(data: SkinAnalysisEntity): List<SkincareProductEntity> {
         val convertedData = Gson().toJson(data)
-        val response = apiConfig.createChatCompletion(ChatCompletionRequest.getObject(RecommendedQueryBuilder.getQuery(convertedData)))
+        val response = apiConfig.createChatCompletion(
+            ChatCompletionRequest.getObject(
+                RecommendedQueryBuilder.getQuery(convertedData)
+            )
+        )
         var temp = response?.body()?.choices?.first()?.message?.content.toString()
         temp = temp.substring(7, temp.length - 3)
         val skincareTasks = Gson().fromJson(temp, Array<SkincareProductEntity>::class.java).toList()

@@ -70,6 +70,7 @@ dependencies {
     implementation Deps.ui_tooling_preview
     implementation Deps.material3
     implementation Deps.navigation_runtime_ktx
+    implementation project(':features-onboarding')
 
     // Mocking library for testing
     testImplementation Deps.mockk

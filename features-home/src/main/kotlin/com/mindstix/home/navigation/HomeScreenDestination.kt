@@ -29,5 +29,8 @@ fun HomeScreenDestination(
         homeScreenViewModel.performAction(it)
     }
 
-    HomeScreen()
+    HomeScreen(
+        homeScreenViewModel = homeScreenViewModel,
+        userIntent = onUserAction()
+    )
 }
