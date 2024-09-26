@@ -1,4 +1,9 @@
-package com.mindstix.home.view.skinroutine.ui
+/**
+ * Copyright (c) 2023 Mindstix Software Labs
+ * All rights reserved.
+ */
+
+package com.mindstix.home.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,47 +30,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mindstix.capabilities.database.entities.SkinCareRoutineEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
 import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.core.R
+import com.mindstix.home.intent.SkinCareRoutineScreenIntent
+import com.mindstix.home.intent.SkinCareRoutineScreenViewStates
 import com.mindstix.home.view.skinroutine.modal.SkinCareRoutineDataClass
+import com.mindstix.home.viewmodel.SkinCareRoutineScreenViewModel
 
+/**
+ * Composable function representing the Profile Screen.
+ *
+ * @author Abhijeet Kokane
+ */
 @Composable
-fun SkinCareRoutineUI() {
+fun SkinCareRoutineScreen(
+    skinCareRoutineScreenViewModel: SkinCareRoutineScreenViewModel,
+    state: SkinCareRoutineScreenViewStates.LoadedData,
+    userIntent: (SkinCareRoutineScreenIntent) -> Unit
+) {
 
-    val skinCareRoutineList = listOf(
+    val skinCareRoutineList = state.data.skinCareRoutineList
+
+    val list = skinCareRoutineList.map {
+        val icon = R.drawable.ic_skin_care
         SkinCareRoutineDataClass(
-            title = "Cleanse face with a gentle cleanser",
-            description = "Apply sunscreen with SPF 30 or higher to protect your skin from harmful UV rays.",
-            iconRes = R.drawable.ic_skin_care // Replace with the correct resource
-        ), SkinCareRoutineDataClass(
-            title = "Apply a lightweight moisturizer",
-            description = "To hydrate your skin and restore its natural moisture barrier without clogging your pores.",
-            iconRes = R.drawable.ic_skin_care // Replace with the correct resource
-        ), SkinCareRoutineDataClass(
-            title = "Use sunscreen daily",
-            description = "Apply sunscreen with SPF 30 or higher to protect your skin from harmful UV rays.",
-            iconRes = R.drawable.ic_skin_care // Replace with the correct resource
-        ), SkinCareRoutineDataClass(
-            title = "Use sunscreen daily",
-            description = "Apply sunscreen with SPF 30 or higher to protect your skin from harmful UV rays.",
-            iconRes = R.drawable.ic_skin_care // Replace with the correct resource
-        ), SkinCareRoutineDataClass(
-            title = "Use sunscreen daily",
-            description = "Apply sunscreen with SPF 30 or higher to protect your skin from harmful UV rays.",
-            iconRes = R.drawable.ic_image // Replace with the correct resource
-        ), SkinCareRoutineDataClass(
-            title = "Use sunscreen daily",
-            description = "Apply sunscreen with SPF 30 or higher to protect your skin from harmful UV rays.",
-            iconRes = R.drawable.ic_skin_care // Replace with the correct resource
-        ), SkinCareRoutineDataClass(
-            title = "Use sunscreen daily",
-            description = "Apply sunscreen with SPF 30 or higher to protect your skin from harmful UV rays.",
-            iconRes = R.drawable.ic_image // Replace with the correct resource
+            title = it.task,
+            description = it.whyWeShouldDoIt,
+            iconRes = icon
         )
-    )
-
-
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,8 +70,8 @@ fun SkinCareRoutineUI() {
         Text(
             text = "AI Generated Skin Care Routine",
             modifier = Modifier.padding(bottom = 16.dp),
-            style = textStyle1.copy(
-                fontSize = 24.sp
+            style = textStyle2.copy(
+                fontSize = 16.sp
             )
         )
         LazyColumn(
@@ -85,7 +80,7 @@ fun SkinCareRoutineUI() {
                 .padding(bottom = 60.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(skinCareRoutineList) { routine ->
+            items(list) { routine ->
                 // Display multiple routine cards
                 RoutineCard(routine = routine)
             }
@@ -98,12 +93,10 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 0.dp),
+            .background(Color.Transparent)
+            .padding(8.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp),
@@ -140,4 +133,3 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
         }
     }
 }
-

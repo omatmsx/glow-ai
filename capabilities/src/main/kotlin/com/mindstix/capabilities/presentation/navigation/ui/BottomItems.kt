@@ -22,7 +22,7 @@ object BottomItems {
             ),
             BottomNavItem(
                 name = "Skin Care Routine ",
-                route = Destinations.ProfileDestination.route,
+                route = Destinations.SkinCareRoutineScreenDestination.route,
                 icon = painterResource(id = R.drawable.ic_skincare_icon),
             ),
             BottomNavItem(
