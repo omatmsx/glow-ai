@@ -13,9 +13,9 @@ plugins {
 android {
     // Define the package namespace for the feature module
     namespace 'com.mindstix.features.login'
+    compileSdk 34
 
     // Set the compile SDK version
-    compileSdk BuildConfig.compileSdk
 
     defaultConfig {
         // Configure default settings such as minSdk, targetSdk, and test runner
@@ -73,10 +73,15 @@ dependencies {
     // Mocking library for testing
     testImplementation Deps.mockk
     testImplementation Deps.kotlinx_coroutines_test
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.7.2'
 
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
     implementation("androidx.lifecycle:lifecycle-runtime-compose")
     implementation Deps.activity_compose    // Required for rememberLauncherForActivityResult
 
+    implementation Deps.hilt_android
+    kapt Deps.hilt_compiler
+
+    implementation Deps.retrofit_gson
 }

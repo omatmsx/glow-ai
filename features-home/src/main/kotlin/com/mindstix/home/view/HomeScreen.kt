@@ -7,6 +7,7 @@ package com.mindstix.home.view
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -25,7 +26,6 @@ import com.mindstix.home.view.dashboard.ui.SkinAnalysisUI
 @Composable
 fun HomeScreen() {
 //    CameraGalleryProfileInfo()
-
     val sampleItems = listOf(
         DiagnosisDataModel(
             conditionName = "Acne",
@@ -42,19 +42,12 @@ fun HomeScreen() {
         )
     )
 
-    LazyColumn(
+    Column(
         verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxSize()
     ) {
-        item {
-            SkinAnalysisUI()
-        }
-
-        item {
-            DiagnosisList(items = sampleItems, onItemClick = {})
-        }
-        item {
-            RecommendedProductsUI()
-        }
+        SkinAnalysisUI()
+        DiagnosisList(items = sampleItems, onItemClick = {})
+        RecommendedProductsUI()
     }
 }
 

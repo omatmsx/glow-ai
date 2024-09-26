@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/mindstix_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BaselineSplash"
+        android:theme="@style/Theme.Splash"
         tools:targetApi="s">
 
         <!-- Declaration of the MindstixApplication as the application class -->

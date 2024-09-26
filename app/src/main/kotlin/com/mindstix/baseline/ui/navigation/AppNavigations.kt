@@ -19,9 +19,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mindstix.capabilities.presentation.navigation.BaseComponentState
 import com.mindstix.capabilities.presentation.navigation.Destinations
+import com.mindstix.home.navigation.AgeScreenDestination
+import com.mindstix.home.navigation.HomeScreenDestination
+import com.mindstix.home.view.AgeScreen
 import com.mindstix.home.view.HomeScreen
 import com.mindstix.home.view.ProfileScreen
 import com.mindstix.home.view.SettingsScreen
+import com.mindstix.home.viewmodel.AgeScreenViewModel
+import com.mindstix.home.viewmodel.HomeScreenViewModel
 import com.mindstix.onboarding.navigation.LoginScreenDestination
 import com.mindstix.onboarding.view.SplashScreen
 import com.mindstix.onboarding.viewModels.LoginViewModel
@@ -110,11 +115,20 @@ fun NavGraphBuilder.homeNavigationGraph(
 ) {
     composable(Destinations.HomeDestination.route) { _ ->
 
+        showBottomBar(baseComponentState)
         // Show bottom bar and hide floating action button for the home screen
         hideFloatingActionButton(baseComponentState)
 
+        val viewModel: HomeScreenViewModel = hiltViewModel()
+        val viewState by viewModel.viewState.collectAsState()
+        val effect = viewModel.effect
+
         // Display the HomeScreen composable
-        HomeScreen()
+        HomeScreenDestination(
+            homeScreenViewModel = viewModel,
+            navEffect = effect,
+            navController = navController
+        )
     }
 }
 
@@ -151,6 +165,29 @@ fun NavGraphBuilder.settingsNavigationGraph(
 
         // Display the SettingsScreen composable
         SettingsScreen()
+    }
+}
+
+fun NavGraphBuilder.ageScreenNavigationGraph(
+    navController: NavHostController,
+    baseComponentState: BaseComponentState,
+){
+    composable(Destinations.AgeScreenDestination.route) { _ ->
+
+        // Show bottom bar and hide floating action button for the settings screen
+        hideBottomBar(baseComponentState)
+        hideFloatingActionButton(baseComponentState)
+
+        val viewModel: AgeScreenViewModel = hiltViewModel()
+        val viewState by viewModel.viewState.collectAsState()
+        val effect = viewModel.effect
+
+        // Display the SettingsScreen composable
+        AgeScreenDestination(
+            viewModel,
+            effect,
+            navController = navController,
+        )
     }
 }
 
