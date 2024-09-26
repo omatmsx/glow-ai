@@ -5,8 +5,8 @@
 
 package com.mindstix.home.view
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.mindstix.home.view.skinroutine.ui.SkinCareRoutineUI
 
 /**
  * Composable function representing the Profile Screen.
@@ -15,5 +15,5 @@ import androidx.compose.runtime.Composable
  */
 @Composable
 fun ProfileScreen() {
-    Text(text = "Profile")
+    SkinCareRoutineUI()
 }
