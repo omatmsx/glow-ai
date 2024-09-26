@@ -144,7 +144,7 @@ fun NavGraphBuilder.skinCareRoutineScreenNavigationGraph(
 
         // Show bottom bar and floating action button for the profile screen
         showBottomBar(baseComponentState)
-        showFloatingActionButton(baseComponentState)
+        hideFloatingActionButton(baseComponentState)
 
         val viewModel: SkinCareRoutineScreenViewModel = hiltViewModel()
         val viewState by viewModel.viewState.collectAsState()
