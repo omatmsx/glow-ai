@@ -14,7 +14,7 @@ fun HomeScreenDestination(
     homeScreenViewModel: HomeScreenViewModel,
     navEffect: Flow<HomeScreenNavEffect>,
     navController: NavController,
-){
+) {
     fun handleNavigation(navEvent: HomeScreenNavEffect) {
 
     }

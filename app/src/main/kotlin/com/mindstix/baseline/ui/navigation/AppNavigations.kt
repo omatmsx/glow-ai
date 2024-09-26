@@ -21,8 +21,6 @@ import com.mindstix.capabilities.presentation.navigation.BaseComponentState
 import com.mindstix.capabilities.presentation.navigation.Destinations
 import com.mindstix.home.navigation.AgeScreenDestination
 import com.mindstix.home.navigation.HomeScreenDestination
-import com.mindstix.home.view.AgeScreen
-import com.mindstix.home.view.HomeScreen
 import com.mindstix.home.view.ProfileScreen
 import com.mindstix.home.view.SettingsScreen
 import com.mindstix.home.viewmodel.AgeScreenViewModel
@@ -171,7 +169,7 @@ fun NavGraphBuilder.settingsNavigationGraph(
 fun NavGraphBuilder.ageScreenNavigationGraph(
     navController: NavHostController,
     baseComponentState: BaseComponentState,
-){
+) {
     composable(Destinations.AgeScreenDestination.route) { _ ->
 
         // Show bottom bar and hide floating action button for the settings screen
