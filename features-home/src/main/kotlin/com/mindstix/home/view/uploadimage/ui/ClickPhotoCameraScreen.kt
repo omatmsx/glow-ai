@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -27,11 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.mindstix.capabilities.presentation.theme.textStyle1
+import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.core.R
 
 @Composable
@@ -53,42 +52,44 @@ fun FaceDetectionUI(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
-            .padding(vertical = 50.dp, horizontal = 20.dp)
+            .padding(vertical = 40.dp, horizontal = 20.dp)
             .fillMaxSize()
     ) {
         Text(
-            text = headerText,
-            color = Color.Black,
-            fontSize = 16.sp,
-            style = TextStyle(fontWeight = FontWeight.Bold)
+            text = headerText, color = Color.Black, style = textStyle2.copy(
+                fontSize = 18.sp
+            )
         )
         Text(
             text = headerDesc1,
             color = Color(0xFF625B71),
-            fontSize = 12.sp,
-            style = TextStyle(fontWeight = FontWeight.Medium)
+            style = textStyle1.copy(
+                fontSize = 14.sp
+            ),
+            modifier = Modifier.padding(top = 5.dp)
         )
         Text(
-            text = headerDesc2,
-            color = Color(0xFF625B71),
-            fontSize = 12.sp,
-            style = TextStyle(fontWeight = FontWeight.Medium)
+            text = headerDesc2, color = Color(0xFF625B71), style = textStyle1.copy(
+                fontSize = 14.sp
+            ),
+            modifier = Modifier.padding(top = 5.dp)
         )
         Text(
-            text = headerDesc3,
-            color = Color(0xFF625B71),
-            fontSize = 12.sp,
-            style = TextStyle(fontWeight = FontWeight.Medium)
+            text = headerDesc3, color = Color(0xFF625B71), style = textStyle1.copy(
+                fontSize = 14.sp
+            ),
+            modifier = Modifier.padding(top = 5.dp)
         )
 
         Column(
             modifier = Modifier.padding(vertical = 40.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             // Circular Face detection area
             Box(
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(250.dp)
                     .clip(CircleShape)
                     .border(
                         width = 4.dp, // Width of the border
@@ -99,10 +100,12 @@ fun FaceDetectionUI(
             ) {
                 if (faceImagePainter.path?.isNotEmpty() == true) {
                     Image(
+
                         painter = rememberImagePainter(data = faceImagePainter),
                         contentDescription = "Face Detection Area",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(180.dp)
+                        modifier = Modifier
+                            .size(230.dp)
                     )
                 } else {
                     Image(
@@ -117,43 +120,48 @@ fun FaceDetectionUI(
 
             // Gallery and Camera Buttons
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
                     onClick = onGalleryClick,
+                    modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEAE6F8))
                 ) {
                     Text(
-                        text = galleryText,
-                        color = Color(0xFF625B71),
-                        style = TextStyle(fontWeight = FontWeight.Bold)
+                        text = galleryText, color = Color(0xFF625B71), style = textStyle1.copy(
+                            fontSize = 16.sp
+                        )
                     )
                 }
 
                 Button(
                     onClick = onCameraClick,
+                    modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF655585))
                 ) {
                     Text(
-                        text = cameraText,
-                        color = Color.White,
-                        style = TextStyle(fontWeight = FontWeight.Bold)
+                        text = cameraText, color = Color.White, style = textStyle1.copy(
+                            fontSize = 16.sp
+                        )
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
             // Continue Button
             Button(
                 onClick = { onContinueClick.invoke() },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.End),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE8DEF8))
             ) {
                 Text(
-                    text = continueText,
-                    color = Color(0xFF625B71),
-                    style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    text = continueText, color = Color(0xFF625B71), style = textStyle1.copy(
+                        fontSize = 16.sp
+                    )
                 )
             }
         }
