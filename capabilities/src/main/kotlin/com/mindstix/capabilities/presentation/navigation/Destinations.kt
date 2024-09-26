@@ -17,4 +17,6 @@ sealed class Destinations(val route: String) {
     object ProfileDestination : Destinations("profile")
     object SettingsDestination : Destinations("settings")
     object AgeScreenDestination : Destinations("age_screen")
+    object ClickPictureScreenDestination : Destinations("click_picture_screen")
+
 }

@@ -20,12 +20,14 @@ import androidx.navigation.navArgument
 import com.mindstix.capabilities.presentation.navigation.BaseComponentState
 import com.mindstix.capabilities.presentation.navigation.Destinations
 import com.mindstix.home.navigation.AgeScreenDestination
+import com.mindstix.home.navigation.ClickPictureScreenDestination
 import com.mindstix.home.navigation.HomeScreenDestination
 import com.mindstix.home.view.AgeScreen
 import com.mindstix.home.view.HomeScreen
 import com.mindstix.home.view.ProfileScreen
 import com.mindstix.home.view.SettingsScreen
 import com.mindstix.home.viewmodel.AgeScreenViewModel
+import com.mindstix.home.viewmodel.ClickPictureScreenViewModel
 import com.mindstix.home.viewmodel.HomeScreenViewModel
 import com.mindstix.onboarding.navigation.LoginScreenDestination
 import com.mindstix.onboarding.view.SplashScreen
@@ -184,6 +186,29 @@ fun NavGraphBuilder.ageScreenNavigationGraph(
 
         // Display the SettingsScreen composable
         AgeScreenDestination(
+            viewModel,
+            effect,
+            navController = navController,
+        )
+    }
+}
+
+fun NavGraphBuilder.clickPictureScreenNavigationGraph(
+    navController: NavHostController,
+    baseComponentState: BaseComponentState,
+){
+    composable(Destinations.ClickPictureScreenDestination.route) { _ ->
+
+        // Show bottom bar and hide floating action button for the settings screen
+        hideBottomBar(baseComponentState)
+        hideFloatingActionButton(baseComponentState)
+
+        val viewModel: ClickPictureScreenViewModel = hiltViewModel()
+        val viewState by viewModel.viewState.collectAsState()
+        val effect = viewModel.effect
+
+        // Display the SettingsScreen composable
+        ClickPictureScreenDestination(
             viewModel,
             effect,
             navController = navController,

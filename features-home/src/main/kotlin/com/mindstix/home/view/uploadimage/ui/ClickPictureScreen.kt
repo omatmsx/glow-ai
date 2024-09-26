@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.mindstix.home.intent.ClickPictureScreenIntent
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -26,7 +27,9 @@ import java.util.Locale
 
 @SuppressLint("Recycle")
 @Composable
-fun CameraGalleryProfileInfo() {
+fun ClickPictureScreen(
+    userIntent: (ClickPictureScreenIntent) -> Unit
+) {
     val context = LocalContext.current
 
     val file = context.createImageFile()
@@ -83,7 +86,12 @@ fun CameraGalleryProfileInfo() {
                 permissionLauncher.launch(Manifest.permission.CAMERA)
             }
         },
-        onContinueClick = {},
+        onContinueClick = {
+            println("###### NavigateToAgeScreen ClickPictureScreen")
+            userIntent.invoke(
+                ClickPictureScreenIntent.NavigateToAgeScreen
+            )
+        },
         faceImagePainter = capturedImage,
     )
 }
