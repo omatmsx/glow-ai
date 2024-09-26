@@ -19,7 +19,7 @@ fun ClickPictureScreenDestination(
     fun handleNavigation(navEvent: ClickPictureScreenNavEffect) {
         when(navEvent){
             is ClickPictureScreenNavEffect.NavigateToAgeScreen -> {
-                println("###### NavigateToAgeScreen ClickPictureScreenDestination")
+                navController.popBackStack()
                 navController.navigate(Destinations.AgeScreenDestination.route)
             }
         }

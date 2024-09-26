@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.core.R
 
 @Composable
@@ -30,8 +30,9 @@ fun SkinAnalysisUI() {
         // Title of the section
         Text(
             text = "Skin Analysis",
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
+            style = textStyle2.copy(
+                fontSize = 20.sp
+            ),
             modifier = Modifier.padding(bottom = 8.dp),
             color = Color.Black
         )
@@ -41,7 +42,7 @@ fun SkinAnalysisUI() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+                .background(Color(0xFFDE9696), shape = RoundedCornerShape(16.dp))
         ) {
             // Main Image
             Image(

@@ -7,3 +7,8 @@ data class DiagnosisDataModel(
     val confidence: Int,
     val imagePainter: Painter
 )
+
+data class RecommendedProducts(
+    val productName: String,
+    val productImg: Int,
+)

@@ -90,4 +90,6 @@ dependencies {
 
     //Database
     implementation Deps.room_db
+    implementation Deps.room_ktx_db
+    kapt Deps.room_compiler_db
 }
