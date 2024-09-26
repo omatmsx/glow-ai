@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import com.mindstix.capabilities.presentation.navigation.Destinations
+import com.mindstix.capabilities.presentation.theme.fredokaFontFamily
 
 /**
  * Composable function representing the Bottom Navigation Bar in the app.
@@ -46,7 +47,7 @@ fun BottomNavigationBar(navController: NavController) {
             NavigationBarItem(
                 alwaysShowLabel = true,
                 icon = { Icon(item.icon, contentDescription = item.name) },
-                label = { Text(item.name) },
+                label = { Text(item.name, fontFamily = fredokaFontFamily) },
                 selected = selectedItem == index,
                 onClick = {
                     selectedItem = index

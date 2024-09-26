@@ -67,7 +67,7 @@ fun RecommendedProductsUI() {
     ) {
         // Title
         Text(
-            text = "Recommended Products", fontSize = 20.sp, style = textStyle2.copy(
+            text = "Recommended Products", fontSize = 20.sp, style = textStyle1.copy(
                 fontSize = 20.sp
             ), modifier = Modifier.padding(bottom = 16.dp)
         )

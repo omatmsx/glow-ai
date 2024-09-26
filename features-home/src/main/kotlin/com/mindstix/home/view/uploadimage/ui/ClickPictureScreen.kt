@@ -3,6 +3,7 @@ package com.mindstix.home.view.uploadimage.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -27,6 +28,7 @@ import androidx.core.content.FileProvider
 import com.mindstix.home.intent.ClickPictureScreenIntent
 import com.mindstix.home.intent.ClickPictureScreenState
 import com.mindstix.home.intent.ClickPictureScreenViewStates
+import com.mindstix.onboarding.utils.SharedPreferenceManager
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -121,6 +123,8 @@ fun ClickPictureScreen(
                     tempFile.outputStream().use { outputStream ->
                         inputStream.copyTo(outputStream)
                     }
+
+                    SharedPreferenceManager(context).userPhoto = tempFile.absolutePath
 
                     userIntent.invoke(
                         ClickPictureScreenIntent.NavigateToAgeScreen(tempFile)

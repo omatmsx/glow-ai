@@ -92,4 +92,5 @@ dependencies {
     implementation Deps.room_db
     implementation Deps.room_ktx_db
     kapt Deps.room_compiler_db
+    implementation "androidx.compose.ui:ui-text-google-fonts:1.7.0"
 }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -74,170 +75,40 @@ fun DiagnosisList(
         rightEyelidsValue = 0
     )
 
+    val diagnosisItems = listOf(
+        DiagnosisListItemData("Acne", firstItem.acneValue, R.drawable.ic_acne, firstItem.acneConfidence),
+        DiagnosisListItemData("Black Heads", firstItem.blackheadValue, R.drawable.ic_acne1, firstItem.blackheadConfidence),
+        DiagnosisListItemData("Dark Circle", firstItem.darkCircleValue, R.drawable.ic_acne2, firstItem.darkCircleConfidence),
+        DiagnosisListItemData("Eye Pouch", firstItem.eyePouchValue, R.drawable.ic_acne3, firstItem.eyePouchConfidence),
+        DiagnosisListItemData("EyeFine Lines", firstItem.eyeFinelinesValue, R.drawable.ic_acne4, firstItem.eyeFinelinesConfidence),
+        DiagnosisListItemData("Forehead Wrinkle", firstItem.foreheadWrinkleValue, R.drawable.ic_acne1, firstItem.foreheadWrinkleConfidence),
+        DiagnosisListItemData("Forehead Pores", firstItem.poresForeheadValue, R.drawable.ic_acne3, firstItem.poresForeheadConfidence),
+        DiagnosisListItemData("RightCheek Pores", firstItem.poresRightCheekValue, R.drawable.ic_acne4, firstItem.poresRightCheekConfidence),
+        DiagnosisListItemData("LeftCheek Pores", firstItem.poresLeftCheekValue, R.drawable.ic_acne, firstItem.poresLeftCheekConfidence),
+        DiagnosisListItemData("Skin Spot", firstItem.skinSpotValue, R.drawable.ic_acne1, firstItem.skinSpotConfidence),
+        DiagnosisListItemData("Nasolabial Fold", firstItem.nasolabialFoldValue, R.drawable.ic_acne2, firstItem.nasolabialFoldConfidence),
+        DiagnosisListItemData("Jaw Pores", firstItem.poresJawValue, R.drawable.ic_acne3, firstItem.poresJawConfidence),
+        DiagnosisListItemData("Left Eyelids", firstItem.leftEyelidsValue, R.drawable.ic_acne4, firstItem.leftEyelidsConfidence),
+        DiagnosisListItemData("Crows Feet", firstItem.crowsFeetValue, R.drawable.ic_acne, firstItem.crowsFeetConfidence),
+        DiagnosisListItemData("Glabella Wrinkle", firstItem.glabellaWrinkleValue, R.drawable.ic_acne1, firstItem.glabellaWrinkleConfidence),
+        DiagnosisListItemData("Mole", firstItem.moleValue, R.drawable.ic_acne2, firstItem.moleConfidence),
+        DiagnosisListItemData("Right Eyelids", firstItem.rightEyelidsValue, R.drawable.ic_acne3, firstItem.rightEyelidsConfidence)
+    )
+
+    // Sort the list by confidence, descending
+    val sortedItems = diagnosisItems.sortedByDescending { it.itemValue }
+
     LazyColumn(
         modifier = Modifier.height(300.dp),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item {
+        items(sortedItems){item ->
             DiagnosisListItem(
-                itemName = "Acne",
-                itemValue = firstItem.acneValue,
-                itemImage = R.drawable.ic_acne,
-                itemConfidence = firstItem.acneConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Black Heads",
-                itemValue = firstItem.blackheadValue,
-                itemImage = R.drawable.ic_acne1,
-                itemConfidence = firstItem.blackheadConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Dark Circle",
-                itemValue = firstItem.darkCircleValue,
-                itemImage = R.drawable.ic_acne2,
-                itemConfidence = firstItem.acneConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Eye Pouch",
-                itemValue = firstItem.eyePouchValue,
-                itemImage = R.drawable.ic_acne3,
-                itemConfidence = firstItem.eyePouchConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "EyeFine Lines",
-                itemValue = firstItem.eyeFinelinesValue,
-                itemImage = R.drawable.ic_acne4,
-                itemConfidence = firstItem.eyeFinelinesConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Forehead Wrinkle",
-                itemValue = firstItem.foreheadWrinkleValue,
-                itemImage = R.drawable.ic_acne1,
-                itemConfidence = firstItem.foreheadWrinkleConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "BlackHead",
-                itemValue = firstItem.blackheadValue,
-                itemImage = R.drawable.ic_acne2,
-                itemConfidence = firstItem.blackheadConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Forehead Pores",
-                itemValue = firstItem.poresForeheadValue,
-                itemImage = R.drawable.ic_acne3,
-                itemConfidence = firstItem.poresForeheadConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "RightCheek Pores",
-                itemValue = firstItem.poresRightCheekValue,
-                itemImage = R.drawable.ic_acne4,
-                itemConfidence = firstItem.poresRightCheekConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "LeftCheek Pores",
-                itemValue = firstItem.poresLeftCheekValue,
-                itemImage = R.drawable.ic_acne,
-                itemConfidence = firstItem.poresLeftCheekConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Skin Spot",
-                itemValue = firstItem.skinSpotValue,
-                itemImage = R.drawable.ic_acne1,
-                itemConfidence = firstItem.skinSpotConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Nasolabial Fold",
-                itemValue = firstItem.nasolabialFoldValue,
-                itemImage = R.drawable.ic_acne2,
-                itemConfidence = firstItem.nasolabialFoldConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Jaw Pores",
-                itemValue = firstItem.poresJawValue,
-                itemImage = R.drawable.ic_acne3,
-                itemConfidence = firstItem.poresJawConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "left Eyelids",
-                itemValue = firstItem.leftEyelidsValue,
-                itemImage = R.drawable.ic_acne4,
-                itemConfidence = firstItem.leftEyelidsConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Crows Feet",
-                itemValue = firstItem.crowsFeetValue,
-                itemImage = R.drawable.ic_acne,
-                itemConfidence = firstItem.crowsFeetConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Glabella Wrinkle",
-                itemValue = firstItem.glabellaWrinkleValue,
-                itemImage = R.drawable.ic_acne1,
-                itemConfidence = firstItem.glabellaWrinkleConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Mole",
-                itemValue = firstItem.moleValue,
-                itemImage = R.drawable.ic_acne2,
-                itemConfidence = firstItem.moleConfidence,
-                onItemClick = onItemClick
-            )
-        }
-        item {
-            DiagnosisListItem(
-                itemName = "Right Eyelids",
-                itemValue = firstItem.rightEyelidsValue,
-                itemImage = R.drawable.ic_acne3,
-                itemConfidence = firstItem.rightEyelidsConfidence,
+                itemName = item.itemName,
+                itemValue = item.itemValue,
+                itemImage = item.itemImage,
+                itemConfidence = item.itemConfidence,
                 onItemClick = onItemClick
             )
         }
@@ -336,4 +207,12 @@ fun DiagnosisListItem(
         }
     }
 }
+
+
+data class DiagnosisListItemData(
+    val itemName: String,
+    val itemValue: Int,
+    val itemImage: Int,
+    val itemConfidence: Double
+)
 

@@ -75,8 +75,8 @@ fun SkinCareRoutineUI() {
         Text(
             text = "AI Generated Skin Care Routine",
             modifier = Modifier.padding(bottom = 16.dp),
-            style = textStyle2.copy(
-                fontSize = 16.sp
+            style = textStyle1.copy(
+                fontSize = 24.sp
             )
         )
         LazyColumn(
@@ -98,10 +98,12 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Transparent)
-            .padding(8.dp),
+            .padding(vertical = 0.dp),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp),
