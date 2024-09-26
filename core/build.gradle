@@ -66,4 +66,5 @@ dependencies {
     implementation Deps.activity_compose    // Required for rememberLauncherForActivityResult
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
     implementation "androidx.lifecycle:lifecycle-runtime-compose:2.8.6"
+    implementation "com.airbnb.android:lottie-compose:6.1.0"
 }

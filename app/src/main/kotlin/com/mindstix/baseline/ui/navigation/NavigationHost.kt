@@ -38,7 +38,7 @@ fun NavigationHost(
         if(isLoggedIn) {
             Destinations.HomeDestination.route
         }else{
-            Destinations.SplashDestination.route
+            Destinations.ClickPictureScreenDestination.route
         }
 
     NavHost(
