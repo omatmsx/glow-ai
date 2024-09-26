@@ -30,18 +30,16 @@ class ClickPictureScreenViewModel @Inject constructor(
     }
 
     override fun handleIntent(intent: ClickPictureScreenIntent) {
-        when(intent){
+        when (intent) {
             is ClickPictureScreenIntent.NavigateToAgeScreen -> {
                 viewModelScope.launch(handler) {
-
                     progressLoader(true)
                     val response = skinAnalysisUseCase.getSkinAnalysis(intent.imagePath)
                     progressLoader(false)
-                    ClickPictureScreenNavEffect.NavigateToAgeScreen
+                    sendNavEffect {
+                        ClickPictureScreenNavEffect.NavigateToAgeScreen
+                    }
 
-                }
-                sendNavEffect {
-                    ClickPictureScreenNavEffect.NavigateToAgeScreen
                 }
             }
         }

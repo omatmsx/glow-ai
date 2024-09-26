@@ -6,6 +6,8 @@ import com.mindstix.capabilities.database.db.GlowAIDatabase
 
 import android.content.Context
 import com.mindstix.capabilities.database.dao.SkinAnalysisDao
+import com.mindstix.capabilities.database.dao.SkinCareRoutineDao
+import com.mindstix.capabilities.database.dao.SkincareProductDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +49,14 @@ class DatabaseModule {
     @Provides
     fun provideSkinAnalysisDao(database: GlowAIDatabase): SkinAnalysisDao {
         return database.getSkinAnalysisDao()
+    }
+    @Provides
+    fun provideSkinCareRoutineDao(database: GlowAIDatabase): SkinCareRoutineDao {
+        return database.getSkinCareRoutineDao()
+    }
+    @Provides
+    fun provideSkincareProductDao(database: GlowAIDatabase):SkincareProductDao {
+        return database.getSSkincareProductDao()
     }
 
 //    @Provides

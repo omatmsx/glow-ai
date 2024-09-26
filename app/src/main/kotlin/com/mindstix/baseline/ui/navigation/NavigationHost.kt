@@ -9,10 +9,12 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mindstix.capabilities.presentation.navigation.BaseComponentState
 import com.mindstix.capabilities.presentation.navigation.Destinations
+import com.mindstix.onboarding.utils.SharedPreferenceManager
 
 /**
  * NavigationHost composable function.
@@ -31,9 +33,17 @@ fun NavigationHost(
     baseComponentState: BaseComponentState,
 ) {
     // NavHost is used to define the navigation graph with various destination composable functions.
+    val isLoggedIn = SharedPreferenceManager(LocalContext.current).isLoggedIn
+    val startDestination =
+        if(isLoggedIn) {
+            Destinations.HomeDestination.route
+        }else{
+            Destinations.SplashDestination.route
+        }
+
     NavHost(
         navController = navController,
-        startDestination = Destinations.ClickPictureScreenDestination.route,
+        startDestination = startDestination,
         modifier = Modifier.fillMaxSize(),
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },

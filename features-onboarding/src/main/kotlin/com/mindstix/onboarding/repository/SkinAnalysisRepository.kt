@@ -1,9 +1,17 @@
 package com.mindstix.onboarding.repository
 
+import com.google.gson.Gson
 import com.mindstix.capabilities.database.dao.SkinAnalysisDao
+import com.mindstix.capabilities.database.dao.SkinCareRoutineDao
+import com.mindstix.capabilities.database.dao.SkincareProductDao
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
+import com.mindstix.capabilities.database.entities.SkinCareRoutineEntity
+import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.network.rest.api.ApiConfig
+import com.mindstix.capabilities.network.rest.model.ChatCompletionRequest
 import com.mindstix.capabilities.network.rest.model.SkinAnalysisReportModel
+import com.mindstix.onboarding.utils.RecommendedQueryBuilder
+import com.mindstix.onboarding.utils.SkinCareQueryBuilder
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -13,8 +21,11 @@ import javax.inject.Inject
 
 class SkinAnalysisRepository @Inject constructor(
     val apiConfig: ApiConfig,
-    val skinAnalysisDao: SkinAnalysisDao
-) {
+    val skinAnalysisDao: SkinAnalysisDao,
+    val skinCareRoutineDao: SkinCareRoutineDao,
+    val skincareProductDao: SkincareProductDao,
+
+    ) {
 
     suspend fun getSkinAnalysis(imageFile:File): Response<SkinAnalysisReportModel> {
         val mimeType = when (imageFile.extension.lowercase()) {
@@ -22,7 +33,6 @@ class SkinAnalysisRepository @Inject constructor(
             "jpg", "jpeg" -> "image/jpeg"
             else -> throw IllegalArgumentException("Unsupported file type: ${imageFile.extension}")
         }
-        imageFile.absolutePath
         val requestFile = RequestBody.create(mimeType.toMediaTypeOrNull(), imageFile)
         val imageBody = MultipartBody.Part.createFormData("image_file", imageFile.name, requestFile)
         return apiConfig.analyzeSkin(imageFile = imageBody)
@@ -30,6 +40,33 @@ class SkinAnalysisRepository @Inject constructor(
 
     suspend fun saveSkinAnalysis(body: SkinAnalysisEntity) {
         skinAnalysisDao.insertSkinAnalysis(body)
+    }
+
+    suspend fun saveSkinCareRoutine(body: List<SkinCareRoutineEntity>) {
+        skinCareRoutineDao.insertRoutine(body)
+    }
+
+
+    suspend fun saveSkincareProductEntity(body: List<SkincareProductEntity>) {
+        skincareProductDao.insertProduct(body)
+    }
+
+    suspend fun getSkinCareRoutine(data: SkinAnalysisEntity): List<SkinCareRoutineEntity> {
+        val convertedData = Gson().toJson(data)
+        val response = apiConfig.createChatCompletion(ChatCompletionRequest.getObject(SkinCareQueryBuilder.getQuery(convertedData)))
+        var temp = response?.body()?.choices?.first()?.message?.content.toString()
+        temp = temp.substring(7, temp.length - 3)
+        val skincareTasks = Gson().fromJson(temp, Array<SkinCareRoutineEntity>::class.java).toList()
+        return skincareTasks
+    }
+
+    suspend fun getRecommendedProducts(data:SkinAnalysisEntity): List<SkincareProductEntity> {
+        val convertedData = Gson().toJson(data)
+        val response = apiConfig.createChatCompletion(ChatCompletionRequest.getObject(RecommendedQueryBuilder.getQuery(convertedData)))
+        var temp = response?.body()?.choices?.first()?.message?.content.toString()
+        temp = temp.substring(7, temp.length - 3)
+        val skincareTasks = Gson().fromJson(temp, Array<SkincareProductEntity>::class.java).toList()
+        return skincareTasks
     }
 
 }

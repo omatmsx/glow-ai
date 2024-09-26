@@ -41,5 +41,5 @@ interface ApiConfig {
         "Authorization: Bearer "
     )
     @POST("https://api.openai.com/v1/chat/completions")
-    fun createChatCompletion(@Body request: ChatCompletionRequest?): Call<AiResponseModel?>?
+    suspend fun createChatCompletion(@Body request: ChatCompletionRequest?): Response<AiResponseModel?>?
 }
