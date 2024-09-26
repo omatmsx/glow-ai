@@ -19,6 +19,7 @@ fun AgeScreenDestination(
     fun handleNavigation(navEvent: AgeScreenNavEffect) {
         when(navEvent){
             is AgeScreenNavEffect.NavigateToHomeScreen -> {
+                navController.popBackStack()
                 navController.navigate(Destinations.HomeDestination.route)
             }
         }

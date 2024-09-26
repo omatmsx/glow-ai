@@ -87,7 +87,6 @@ fun ClickPictureScreen(
             }
         },
         onContinueClick = {
-            println("###### NavigateToAgeScreen ClickPictureScreen")
             userIntent.invoke(
                 ClickPictureScreenIntent.NavigateToAgeScreen
             )
