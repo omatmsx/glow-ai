@@ -58,4 +58,6 @@ object Versions {
 
     //Database
     const val db_version = "2.6.1"
+
+    const val custom_view = "1.1.0"
 }

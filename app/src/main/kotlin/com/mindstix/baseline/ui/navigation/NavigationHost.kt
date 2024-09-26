@@ -33,7 +33,7 @@ fun NavigationHost(
     // NavHost is used to define the navigation graph with various destination composable functions.
     NavHost(
         navController = navController,
-        startDestination = Destinations.HomeDestination.route,
+        startDestination = Destinations.AgeScreenDestination.route,
         modifier = Modifier.fillMaxSize(),
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
@@ -58,6 +58,10 @@ fun NavigationHost(
         settingsNavigationGraph(
             navController = navController,
             baseComponentState = baseComponentState,
+        )
+        ageScreenNavigationGraph(
+            navController = navController,
+            baseComponentState = baseComponentState
         )
     }
 }

@@ -22,6 +22,8 @@ object Deps {
     const val compose_ui_graphics = "androidx.compose.ui:ui-graphics:${Versions.compose}"
     const val ui_tooling_preview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val material3 = "androidx.compose.material3:material3:${Versions.material}"
+    const val custom_view = "androidx.customview:customview:${Versions.custom_view}"
+    const val custom_view_pooling = "androidx.customview:customview-poolingcontainer:${Versions.custom_view}"
 
     // Testing dependencies
     const val junit = "junit:junit:${Versions.junit}"
