@@ -61,7 +61,7 @@ fun NavigationHost(
             navController = navController,
             baseComponentState = baseComponentState,
         )
-        profileNavigationGraph(
+        skinCareRoutineScreenNavigationGraph(
             navController = navController,
             baseComponentState = baseComponentState,
         )

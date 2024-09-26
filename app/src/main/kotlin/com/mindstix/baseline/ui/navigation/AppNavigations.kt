@@ -22,11 +22,12 @@ import com.mindstix.capabilities.presentation.navigation.Destinations
 import com.mindstix.home.navigation.AgeScreenDestination
 import com.mindstix.home.navigation.ClickPictureScreenDestination
 import com.mindstix.home.navigation.HomeScreenDestination
-import com.mindstix.home.view.ProfileScreen
+import com.mindstix.home.navigation.SkinCareRoutineScreenDestination
 import com.mindstix.home.view.SettingsScreen
 import com.mindstix.home.viewmodel.AgeScreenViewModel
 import com.mindstix.home.viewmodel.ClickPictureScreenViewModel
 import com.mindstix.home.viewmodel.HomeScreenViewModel
+import com.mindstix.home.viewmodel.SkinCareRoutineScreenViewModel
 import com.mindstix.onboarding.navigation.LoginScreenDestination
 import com.mindstix.onboarding.view.SplashScreen
 import com.mindstix.onboarding.viewModels.LoginViewModel
@@ -135,18 +136,26 @@ fun NavGraphBuilder.homeNavigationGraph(
 /**
  * Defines the navigation graph for the Profile screen.
  */
-fun NavGraphBuilder.profileNavigationGraph(
+fun NavGraphBuilder.skinCareRoutineScreenNavigationGraph(
     navController: NavHostController,
     baseComponentState: BaseComponentState,
 ) {
-    composable(Destinations.ProfileDestination.route) { _ ->
+    composable(Destinations.SkinCareRoutineScreenDestination.route) { _ ->
 
         // Show bottom bar and floating action button for the profile screen
         showBottomBar(baseComponentState)
         showFloatingActionButton(baseComponentState)
 
+        val viewModel: SkinCareRoutineScreenViewModel = hiltViewModel()
+        val viewState by viewModel.viewState.collectAsState()
+        val effect = viewModel.effect
         // Display the ProfileScreen composable
-        ProfileScreen()
+        SkinCareRoutineScreenDestination(
+            viewModel,
+            viewState.skinCareRoutineScreenViewState,
+            effect,
+            navController,
+        )
     }
 }
 
