@@ -25,7 +25,6 @@ class ClickPictureScreenViewModel @Inject constructor(
     override fun handleIntent(intent: ClickPictureScreenIntent) {
         when(intent){
             is ClickPictureScreenIntent.NavigateToAgeScreen -> {
-                println("###### NavigateToAgeScreen ClickPictureScreenViewModel")
                 sendNavEffect {
                     ClickPictureScreenNavEffect.NavigateToAgeScreen
                 }
