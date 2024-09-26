@@ -11,7 +11,8 @@ import javax.inject.Inject
 class SkinAnalysisUseCaseImpl @Inject constructor(
     val skinAnalysisRepository: SkinAnalysisRepository,
     private val sharedPreferenceManager: SharedPreferenceManager
-) : SkinAnalysisUseCase {
+) :
+    SkinAnalysisUseCase {
     override suspend fun getSkinAnalysis(imageFilePath: File): SkinAnalysisEntity {
         val response = skinAnalysisRepository.getSkinAnalysis(imageFilePath)
         val body = response.body()
