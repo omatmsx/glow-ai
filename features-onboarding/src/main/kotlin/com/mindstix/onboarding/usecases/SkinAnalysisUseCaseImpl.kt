@@ -11,9 +11,8 @@ import javax.inject.Inject
 class SkinAnalysisUseCaseImpl @Inject constructor(
     val skinAnalysisRepository: SkinAnalysisRepository,
     private val sharedPreferenceManager: SharedPreferenceManager
-
 ) : SkinAnalysisUseCase {
-    override suspend fun getSkinAnalysis(imageFilePath: File) {
+    override suspend fun getSkinAnalysis(imageFilePath: File): SkinAnalysisEntity {
         val response = skinAnalysisRepository.getSkinAnalysis(imageFilePath)
         val body = response.body()
 
@@ -30,9 +29,15 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
 
         skinAnalysisRepository.saveSkinAnalysis(skinAnalysisEntity)
 
+        return skinAnalysisEntity
+    }
+
+    override suspend fun getSkinCare(skinAnalysisEntity: SkinAnalysisEntity) {
         val skinCare = skinAnalysisRepository.getSkinCareRoutine(skinAnalysisEntity)
         skinAnalysisRepository.saveSkinCareRoutine(skinCare)
+    }
 
+    override suspend fun getRecommendedProducts(skinAnalysisEntity: SkinAnalysisEntity) {
         val recommendedProducts = skinAnalysisRepository.getRecommendedProducts(skinAnalysisEntity)
         skinAnalysisRepository.saveSkincareProductEntity(recommendedProducts)
 

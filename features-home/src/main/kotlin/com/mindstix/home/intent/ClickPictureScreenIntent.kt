@@ -25,6 +25,13 @@ sealed class ClickPictureScreenViewStates {
     data class InitialLoading(
         val showLoader: Boolean = false,
         val isRefreshing: Boolean = false,
+        var message:String=""
+    ) : ClickPictureScreenViewStates()
+
+    data class ErrorState(
+        val showLoader: Boolean = false,
+        val isRefreshing: Boolean = false,
+        var message:String=""
     ) : ClickPictureScreenViewStates()
 
     data object UnInitialized : ClickPictureScreenViewStates()
