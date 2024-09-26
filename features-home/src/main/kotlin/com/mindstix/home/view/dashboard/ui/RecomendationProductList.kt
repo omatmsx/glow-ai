@@ -1,6 +1,7 @@
 package com.mindstix.home.view.dashboard.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,10 @@ import com.mindstix.core.R
 
 
 @Composable
-fun RecommendedProductsUI(recommendedProduct: List<SkincareProductEntity>) {
+fun RecommendedProductsUI(
+    recommendedProduct: List<SkincareProductEntity>,
+    onClick: (SkincareProductEntity) -> Unit
+) {
     val recommendedProductList = recommendedProduct
     val productImgList = listOf(
         R.drawable.ic_essikaproduct,
@@ -59,8 +63,7 @@ fun RecommendedProductsUI(recommendedProduct: List<SkincareProductEntity>) {
 
         // Horizontal list of products
         LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             // Example of 4 items
             items(recommendedProductList) { item ->
@@ -68,7 +71,9 @@ fun RecommendedProductsUI(recommendedProduct: List<SkincareProductEntity>) {
                 ProductCard(
                     productName = item.productName, productImg = randomImage
                 ) // Replace with your product image resource
-                { /* Handle click */ }
+                {
+                    onClick(item)
+                }
             }
         }
     }
@@ -81,7 +86,8 @@ fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () ->
         modifier = Modifier
             .width(140.dp)
             .height(200.dp)
-            .padding(2.dp),
+            .padding(2.dp)
+            .clickable { onQuestionMarkClick() },
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {

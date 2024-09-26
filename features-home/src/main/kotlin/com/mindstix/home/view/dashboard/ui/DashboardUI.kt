@@ -76,23 +76,108 @@ fun DiagnosisList(
     )
 
     val diagnosisItems = listOf(
-        DiagnosisListItemData("Acne", firstItem.acneValue, R.drawable.ic_acne, firstItem.acneConfidence),
-        DiagnosisListItemData("Black Heads", firstItem.blackheadValue, R.drawable.ic_acne1, firstItem.blackheadConfidence),
-        DiagnosisListItemData("Dark Circle", firstItem.darkCircleValue, R.drawable.ic_acne2, firstItem.darkCircleConfidence),
-        DiagnosisListItemData("Eye Pouch", firstItem.eyePouchValue, R.drawable.ic_acne3, firstItem.eyePouchConfidence),
-        DiagnosisListItemData("EyeFine Lines", firstItem.eyeFinelinesValue, R.drawable.ic_acne4, firstItem.eyeFinelinesConfidence),
-        DiagnosisListItemData("Forehead Wrinkle", firstItem.foreheadWrinkleValue, R.drawable.ic_acne1, firstItem.foreheadWrinkleConfidence),
-        DiagnosisListItemData("Forehead Pores", firstItem.poresForeheadValue, R.drawable.ic_acne3, firstItem.poresForeheadConfidence),
-        DiagnosisListItemData("RightCheek Pores", firstItem.poresRightCheekValue, R.drawable.ic_acne4, firstItem.poresRightCheekConfidence),
-        DiagnosisListItemData("LeftCheek Pores", firstItem.poresLeftCheekValue, R.drawable.ic_acne, firstItem.poresLeftCheekConfidence),
-        DiagnosisListItemData("Skin Spot", firstItem.skinSpotValue, R.drawable.ic_acne1, firstItem.skinSpotConfidence),
-        DiagnosisListItemData("Nasolabial Fold", firstItem.nasolabialFoldValue, R.drawable.ic_acne2, firstItem.nasolabialFoldConfidence),
-        DiagnosisListItemData("Jaw Pores", firstItem.poresJawValue, R.drawable.ic_acne3, firstItem.poresJawConfidence),
-        DiagnosisListItemData("Left Eyelids", firstItem.leftEyelidsValue, R.drawable.ic_acne4, firstItem.leftEyelidsConfidence),
-        DiagnosisListItemData("Crows Feet", firstItem.crowsFeetValue, R.drawable.ic_acne, firstItem.crowsFeetConfidence),
-        DiagnosisListItemData("Glabella Wrinkle", firstItem.glabellaWrinkleValue, R.drawable.ic_acne1, firstItem.glabellaWrinkleConfidence),
-        DiagnosisListItemData("Mole", firstItem.moleValue, R.drawable.ic_acne2, firstItem.moleConfidence),
-        DiagnosisListItemData("Right Eyelids", firstItem.rightEyelidsValue, R.drawable.ic_acne3, firstItem.rightEyelidsConfidence)
+        DiagnosisListItemData(
+            "Acne",
+            firstItem.acneValue,
+            R.drawable.ic_acne,
+            firstItem.acneConfidence
+        ),
+        DiagnosisListItemData(
+            "Black Heads",
+            firstItem.blackheadValue,
+            R.drawable.ic_acne1,
+            firstItem.blackheadConfidence
+        ),
+        DiagnosisListItemData(
+            "Dark Circle",
+            firstItem.darkCircleValue,
+            R.drawable.ic_acne2,
+            firstItem.darkCircleConfidence
+        ),
+        DiagnosisListItemData(
+            "Eye Pouch",
+            firstItem.eyePouchValue,
+            R.drawable.ic_acne3,
+            firstItem.eyePouchConfidence
+        ),
+        DiagnosisListItemData(
+            "EyeFine Lines",
+            firstItem.eyeFinelinesValue,
+            R.drawable.ic_acne4,
+            firstItem.eyeFinelinesConfidence
+        ),
+        DiagnosisListItemData(
+            "Forehead Wrinkle",
+            firstItem.foreheadWrinkleValue,
+            R.drawable.ic_acne1,
+            firstItem.foreheadWrinkleConfidence
+        ),
+        DiagnosisListItemData(
+            "Forehead Pores",
+            firstItem.poresForeheadValue,
+            R.drawable.ic_acne3,
+            firstItem.poresForeheadConfidence
+        ),
+        DiagnosisListItemData(
+            "RightCheek Pores",
+            firstItem.poresRightCheekValue,
+            R.drawable.ic_acne4,
+            firstItem.poresRightCheekConfidence
+        ),
+        DiagnosisListItemData(
+            "LeftCheek Pores",
+            firstItem.poresLeftCheekValue,
+            R.drawable.ic_acne,
+            firstItem.poresLeftCheekConfidence
+        ),
+        DiagnosisListItemData(
+            "Skin Spot",
+            firstItem.skinSpotValue,
+            R.drawable.ic_acne1,
+            firstItem.skinSpotConfidence
+        ),
+        DiagnosisListItemData(
+            "Nasolabial Fold",
+            firstItem.nasolabialFoldValue,
+            R.drawable.ic_acne2,
+            firstItem.nasolabialFoldConfidence
+        ),
+        DiagnosisListItemData(
+            "Jaw Pores",
+            firstItem.poresJawValue,
+            R.drawable.ic_acne3,
+            firstItem.poresJawConfidence
+        ),
+        DiagnosisListItemData(
+            "Left Eyelids",
+            firstItem.leftEyelidsValue,
+            R.drawable.ic_acne4,
+            firstItem.leftEyelidsConfidence
+        ),
+        DiagnosisListItemData(
+            "Crows Feet",
+            firstItem.crowsFeetValue,
+            R.drawable.ic_acne,
+            firstItem.crowsFeetConfidence
+        ),
+        DiagnosisListItemData(
+            "Glabella Wrinkle",
+            firstItem.glabellaWrinkleValue,
+            R.drawable.ic_acne1,
+            firstItem.glabellaWrinkleConfidence
+        ),
+        DiagnosisListItemData(
+            "Mole",
+            firstItem.moleValue,
+            R.drawable.ic_acne2,
+            firstItem.moleConfidence
+        ),
+        DiagnosisListItemData(
+            "Right Eyelids",
+            firstItem.rightEyelidsValue,
+            R.drawable.ic_acne3,
+            firstItem.rightEyelidsConfidence
+        )
     )
 
     // Sort the list by confidence, descending
@@ -103,13 +188,14 @@ fun DiagnosisList(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(sortedItems){item ->
+        items(sortedItems) { item ->
             DiagnosisListItem(
                 itemName = item.itemName,
                 itemValue = item.itemValue,
                 itemImage = item.itemImage,
                 itemConfidence = item.itemConfidence,
-                onItemClick = onItemClick
+                onItemClick = {
+                }
             )
         }
     }
@@ -214,5 +300,10 @@ data class DiagnosisListItemData(
     val itemValue: Int,
     val itemImage: Int,
     val itemConfidence: Double
+)
+
+data class DialogBoxDataModel(
+    val dialogTitle: String,
+    val dialogDesc: String
 )
 
