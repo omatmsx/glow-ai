@@ -146,7 +146,7 @@ fun FaceDetectionUI(
 
             // Continue Button
             Button(
-                onClick = onContinueClick,
+                onClick = { onContinueClick.invoke() },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE8DEF8))
             ) {
