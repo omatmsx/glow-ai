@@ -17,6 +17,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +35,10 @@ class HomeScreenViewModel @Inject constructor(
 
     var skinRecommendedProduct = mutableStateOf<List<SkincareProductEntity>>(emptyList())
         private set
+
+    var weatherData = mutableStateOf<String>("")
+        private set
+
 
     override fun createInitialState(): HomeScreenState {
         return HomeScreenState(HomeScreenViewStates.UnInitialized)
@@ -65,6 +71,29 @@ class HomeScreenViewModel @Inject constructor(
                         skinRecommendedProduct.value = recommendedProduct
                         Log.d(
                             "skin Recommended Product", recommendedProduct.toString()
+                        )  // Log the response
+                    } catch (e: Exception) {
+                        Log.e("Error", "Error fetching skin analyses", e)
+                    } finally {
+                        progressLoader(false)
+                    }
+                }
+            }
+
+            is HomeScreenIntent.GetWeatherData -> {
+                viewModelScope.launch {
+                    try {
+                        progressLoader(true)
+                        val getWeatherData =
+                            skinAnalysisUseCase.getWeatherData() // Await the result
+                        val tipOfTheDay = skinAnalysisUseCase.getTipOfTheDay(
+                            temp = getWeatherData?.current?.temp_c.toString(),
+                            weatherCondition = getWeatherData?.current?.condition?.text.toString(),
+                            currentTime = getCurrentTime()
+                        )
+                        weatherData.value = tipOfTheDay
+                        Log.d(
+                            "getWeatherData", getWeatherData.toString()
                         )  // Log the response
                     } catch (e: Exception) {
                         Log.e("Error", "Error fetching skin analyses", e)
@@ -107,5 +136,11 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun progressLoader(visibility: Boolean) {
         _showLoader.value = visibility
+    }
+
+    private fun getCurrentTime(): String {
+        val currentTime = LocalTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+        return currentTime.format(formatter)
     }
 }

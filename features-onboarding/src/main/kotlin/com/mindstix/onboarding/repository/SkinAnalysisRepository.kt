@@ -10,6 +10,7 @@ import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.network.rest.api.ApiConfig
 import com.mindstix.capabilities.network.rest.model.ChatCompletionRequest
 import com.mindstix.capabilities.network.rest.model.SkinAnalysisReportModel
+import com.mindstix.capabilities.network.rest.model.WeatherResponse
 import com.mindstix.onboarding.utils.RecommendedQueryBuilder
 import com.mindstix.onboarding.utils.SkinCareQueryBuilder
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -85,4 +86,32 @@ class SkinAnalysisRepository @Inject constructor(
         return skincareTasks
     }
 
+    suspend fun getWeather(
+    ): WeatherResponse? {
+        val response = apiConfig.createGetWeather()
+        if (response != null) {
+            if (response.isSuccessful) {
+                // Handle the successful response
+                val weatherResponse = response.body()
+                println("weather response:- $weatherResponse")
+            }
+        }
+        return response?.body()
+    }
+
+    suspend fun getTipOfDay(temp: String, weatherCondition: String, currentTime: String): String {
+        val convertedTemp = Gson().toJson(temp)
+        val convertedWeatherCond = Gson().toJson(weatherCondition)
+        val convertedCurrentTime = Gson().toJson(currentTime)
+        val response = apiConfig.createChatCompletion(
+            ChatCompletionRequest.getObject(
+                SkinCareQueryBuilder.getQueryForDayTip(
+                    convertedTemp, convertedWeatherCond, convertedCurrentTime
+                )
+            )
+        )
+        var temp = response?.body()?.choices?.first()?.message?.content.toString()
+        temp = temp.substring(7, temp.length - 3)
+        return temp
+    }
 }

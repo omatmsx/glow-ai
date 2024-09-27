@@ -3,6 +3,7 @@ package com.mindstix.onboarding.usecases
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.mapper.SkinAnalysisMapper
+import com.mindstix.capabilities.network.rest.model.WeatherResponse
 import com.mindstix.onboarding.repository.SkinAnalysisRepository
 import com.mindstix.onboarding.utils.SharedPreferenceManager
 import org.json.JSONObject
@@ -12,8 +13,7 @@ import javax.inject.Inject
 class SkinAnalysisUseCaseImpl @Inject constructor(
     val skinAnalysisRepository: SkinAnalysisRepository,
     private val sharedPreferenceManager: SharedPreferenceManager
-) :
-    SkinAnalysisUseCase {
+) : SkinAnalysisUseCase {
     override suspend fun getSkinAnalysis(imageFilePath: File): SkinAnalysisEntity {
         val response = skinAnalysisRepository.getSkinAnalysis(imageFilePath)
         val body = response.body()
@@ -21,7 +21,9 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
         if (!response.isSuccessful || body == null) {
             var errorMessage = "Api failed"
             try {
-                errorMessage = JSONObject(response.errorBody()!!.charStream().readText()).optString("error_message")
+                errorMessage = JSONObject(
+                    response.errorBody()!!.charStream().readText()
+                ).optString("error_message")
             } catch (_: Exception) {
             }
             throw Throwable(message = errorMessage)
@@ -59,4 +61,22 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
         return response
     }
 
+    override suspend fun getWeatherData(
+    ): WeatherResponse? {
+        val response = skinAnalysisRepository.getWeather()
+        println("Weather Response: $response")
+        return response
+    }
+
+    override suspend fun getTipOfTheDay(
+        temp: String,
+        weatherCondition: String,
+        currentTime: String
+    ): String {
+        return skinAnalysisRepository.getTipOfDay(
+            temp = temp,
+            weatherCondition = weatherCondition,
+            currentTime = currentTime
+        )
+    }
 }

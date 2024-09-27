@@ -2,8 +2,8 @@ package com.mindstix.onboarding.utils
 
 class SkinCareQueryBuilder {
 
-    companion object{
-        fun getQuery(data:String): String {
+    companion object {
+        fun getQuery(data: String): String {
             return """
             use this data 
             $data
@@ -11,6 +11,13 @@ class SkinCareQueryBuilder {
             [{"task":"","time":"morning or evening","whyWeShouldDoIt":""}]
         """.trimIndent()
         }
-    }
 
+        fun getQueryForDayTip(temp: String, weatherCondition: String, currentTime: String): String {
+            return """
+            temp is
+            $temp
+             celcius and $weatherCondition and current time is $currentTime, give me skin care tip under 10 words.
+                     """.trimIndent()
+        }
+    }
 }

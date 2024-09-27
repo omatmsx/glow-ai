@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -43,12 +44,13 @@ import com.mindstix.home.viewmodel.HomeScreenViewModel
 /**
  * Composable function representing the Home Screen.
  */
-@SuppressLint("Recycle")
+@SuppressLint("Recycle", "MissingPermission")
 @Composable
 fun HomeScreen(
     homeScreenViewModel: HomeScreenViewModel, userIntent: (HomeScreenIntent) -> Unit
 ) {
     val skinAnalyses by homeScreenViewModel.skinAnalysesState
+    val weatherData by homeScreenViewModel.weatherData
     // Map the values into a list of specific fields
     val mappedSkinAnalyses = skinAnalyses.map { analysis ->
         SkinAnalysisEntityDataModal(
@@ -102,11 +104,11 @@ fun HomeScreen(
     }
 
 
-    // State to track the dialog visibility and selected item
+// State to track the dialog visibility and selected item
     var showDialog by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf<SkincareProductEntity?>(null) }
 
-    // Show dialog if showDialog is true
+// Show dialog if showDialog is true
     if (showDialog && selectedItem != null) {
         // Display the dialog
         Box(
@@ -186,6 +188,20 @@ fun HomeScreen(
     ) {
         item {
             SkinAnalysisUI()
+        }
+
+        item {
+            TextButton(
+                onClick = {
+                    userIntent.invoke(
+                        HomeScreenIntent.GetWeatherData
+                    )
+                }, modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = weatherData.ifEmpty { "Weather" }, modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
 
         item {
