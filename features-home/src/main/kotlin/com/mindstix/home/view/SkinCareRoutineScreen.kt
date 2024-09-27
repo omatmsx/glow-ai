@@ -68,10 +68,10 @@ fun SkinCareRoutineScreen(
     ) {
         // Header Title
         Text(
-            text = "AI Generated Skin Care Routine",
+            text = "Personalized Skin Care Routine",
             modifier = Modifier.padding(bottom = 16.dp),
-            style = textStyle2.copy(
-                fontSize = 16.sp
+            style = textStyle1.copy(
+                fontSize = 24.sp
             )
         )
         LazyColumn(

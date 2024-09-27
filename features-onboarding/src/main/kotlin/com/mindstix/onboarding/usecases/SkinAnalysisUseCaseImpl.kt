@@ -21,7 +21,7 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
         if (!response.isSuccessful || body == null) {
             var errorMessage = "Api failed"
             try {
-                errorMessage = JSONObject(response.errorBody()!!.charStream().readText()).toString()
+                errorMessage = JSONObject(response.errorBody()!!.charStream().readText()).optString("error_message")
             } catch (_: Exception) {
             }
             throw Throwable(message = errorMessage)
