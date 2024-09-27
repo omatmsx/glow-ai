@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,6 +42,7 @@ import com.mindstix.home.view.dashboard.ui.DiagnosisList
 import com.mindstix.home.view.dashboard.ui.RecommendedProductsUI
 import com.mindstix.home.view.dashboard.ui.SkinAnalysisUI
 import com.mindstix.home.viewmodel.HomeScreenViewModel
+import com.mindstix.onboarding.utils.NotificationHelper
 
 /**
  * Composable function representing the Home Screen.
@@ -104,12 +106,21 @@ fun HomeScreen(
         )
     }
 
+    LaunchedEffect(Unit) {
+        userIntent.invoke(
+            HomeScreenIntent.GetWeatherData
+        )
+    }
 
-// State to track the dialog visibility and selected item
+    if(weatherData.isNotEmpty()){
+        NotificationHelper(LocalContext.current).sendNotification(weatherData)
+    }
+
+
     var showDialog by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf<SkincareProductEntity?>(null) }
 
-// Show dialog if showDialog is true
+
     if (showDialog && selectedItem != null) {
         // Display the dialog
         Box(
@@ -153,7 +164,7 @@ fun HomeScreen(
                         )
 
                         Text(
-                            text = "Why to use this",
+                            text = "Why you should use this",
                             color = Color.Black,
                             maxLines = 3,
                             style = textStyle1.copy(
@@ -190,20 +201,6 @@ fun HomeScreen(
     ) {
         item {
             SkinAnalysisUI()
-        }
-
-        item {
-            TextButton(
-                onClick = {
-                    userIntent.invoke(
-                        HomeScreenIntent.GetWeatherData
-                    )
-                }, modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = weatherData.ifEmpty { "Weather" }, modifier = Modifier.fillMaxWidth()
-                )
-            }
         }
 
         item {

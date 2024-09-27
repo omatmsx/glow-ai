@@ -6,6 +6,7 @@ package com.mindstix.baseline
 
 import android.app.Application
 import com.mindstix.core.logger.Logger
+import com.mindstix.onboarding.utils.NotificationHelper
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -35,5 +36,7 @@ class MindstixApplication : Application() {
         // Additional initialization logic can be added here
         // Based upon Variants and BUILD_TYPE we can enable Logging
         Logger.enableLogging()
+
+        NotificationHelper(applicationContext).createNotificationChannel()
     }
 }

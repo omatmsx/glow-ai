@@ -8,6 +8,7 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
@@ -19,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mindstix.capabilities.presentation.navigation.BaseComponentState
 import com.mindstix.capabilities.presentation.navigation.Destinations
+import com.mindstix.home.intent.HomeScreenIntent
 import com.mindstix.home.navigation.AgeScreenDestination
 import com.mindstix.home.navigation.ClickPictureScreenDestination
 import com.mindstix.home.navigation.HomeScreenDestination
@@ -123,6 +125,7 @@ fun NavGraphBuilder.homeNavigationGraph(
         val viewModel: HomeScreenViewModel = hiltViewModel()
         val viewState by viewModel.viewState.collectAsState()
         val effect = viewModel.effect
+
 
         // Display the HomeScreen composable
         HomeScreenDestination(

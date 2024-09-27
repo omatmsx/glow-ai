@@ -110,8 +110,6 @@ class SkinAnalysisRepository @Inject constructor(
                 )
             )
         )
-        var temp = response?.body()?.choices?.first()?.message?.content.toString()
-        temp = temp.substring(7, temp.length - 3)
-        return temp
+        return response?.body()?.choices?.first()?.message?.content.toString()
     }
 }
