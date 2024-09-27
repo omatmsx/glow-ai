@@ -21,7 +21,7 @@ object BuildConfig {
     const val kotlinCompilerExtensionVersion = "1.5.6"
 
     const val applicationId = "com.mindstix.baseline"
-    const val appName = "BaseLine"
+    const val appName = "GlowAI"
 }
 
 // Object representing configurations specific to the India flavor
@@ -36,7 +36,7 @@ object UAT {
     const val suffix = "-UAT"
     const val dimensions = "app"
     const val extension = "${BuildConfig.applicationId}.uat"
-    const val appName = "${BuildConfig.appName}$suffix"
+    const val appName = BuildConfig.appName
 }
 
 // Object representing configurations specific to the QA flavor
@@ -46,7 +46,7 @@ object QA {
     const val suffix = "QA"
     const val dimensions = "app"
     const val extension = "${BuildConfig.applicationId}.qa"
-    const val appName = "${BuildConfig.appName}$suffix"
+    const val appName = BuildConfig.appName
 }
 
 // Object representing configurations specific to the DEV flavor
@@ -56,7 +56,7 @@ object DEV {
     const val suffix = "-DEV"
     const val dimensions = "app"
     const val extension = "${BuildConfig.applicationId}.dev"
-    const val appName = "${BuildConfig.appName}$suffix"
+    const val appName = BuildConfig.appName
 }
 
 // Object representing configurations specific to the PROD flavor
@@ -66,5 +66,5 @@ object PROD {
     const val suffix = ""
     const val dimensions = "app"
     const val extension = BuildConfig.applicationId
-    const val appName = "${BuildConfig.appName}$suffix"
+    const val appName = BuildConfig.appName
 }
