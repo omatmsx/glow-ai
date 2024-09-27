@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mindstix.capabilities.presentation.theme.textStyle1
+import com.mindstix.capabilities.presentation.theme.textStyleLight
 import com.mindstix.core.R
 import com.mindstix.home.view.dashboard.modal.SkinAnalysisEntityDataModal
 import java.math.RoundingMode
@@ -113,19 +114,19 @@ fun DiagnosisList(
             firstItem.foreheadWrinkleConfidence
         ),
         DiagnosisListItemData(
-            "Forehead Pores",
+            "Pores (Forehead)",
             firstItem.poresForeheadValue,
             R.drawable.ic_acne3,
             firstItem.poresForeheadConfidence
         ),
         DiagnosisListItemData(
-            "RightCheek Pores",
+            "Pores (RightCheek)",
             firstItem.poresRightCheekValue,
             R.drawable.ic_acne4,
             firstItem.poresRightCheekConfidence
         ),
         DiagnosisListItemData(
-            "LeftCheek Pores",
+            "Pores (LeftCheek)",
             firstItem.poresLeftCheekValue,
             R.drawable.ic_acne,
             firstItem.poresLeftCheekConfidence
@@ -149,7 +150,7 @@ fun DiagnosisList(
             firstItem.poresJawConfidence
         ),
         DiagnosisListItemData(
-            "Left Eyelids",
+            "Wrinkles (Left Eyelids)",
             firstItem.leftEyelidsValue,
             R.drawable.ic_acne4,
             firstItem.leftEyelidsConfidence
@@ -173,7 +174,7 @@ fun DiagnosisList(
             firstItem.moleConfidence
         ),
         DiagnosisListItemData(
-            "Right Eyelids",
+            "Wrinkles (Right Eyelids)",
             firstItem.rightEyelidsValue,
             R.drawable.ic_acne3,
             firstItem.rightEyelidsConfidence
@@ -244,23 +245,31 @@ fun DiagnosisListItem(
                             .clip(RoundedCornerShape(8.dp)) // You can change this to CircleShape if needed
                     )
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
 
                     // Condition Name
                     Text(
                         text = itemName, style = textStyle1.copy(
-                            fontSize = 16.sp
+                            fontSize = 14.sp
                         )
                     )
                 }
                 Spacer(modifier = Modifier.weight(1F))
                 // Information Icon
-                Icon(
-                    painter = painterResource(id = if (itemValue != 0) R.drawable.ic_info else R.drawable.baseline_done_24),
-                    contentDescription = "Info Icon",
-                    tint = if (itemValue != 0) Color.Red else Color.Green,
-                    modifier = Modifier.size(20.dp)
+
+                Text(
+                    text = if (itemValue != 0) "Detected" else "Not Detected",
+                    style = textStyleLight.copy(
+                        fontSize = 12.sp,
+                    ),
+                    color = if (itemValue != 0) Color.Red else Color(0xFF14AE5C),
                 )
+//                Icon(
+//                    painter = painterResource(id = if (itemValue != 0) R.drawable.ic_info else R.drawable.baseline_done_24),
+//                    contentDescription = "Info Icon",
+//                    tint = if (itemValue != 0) Color.Red else Color.Green,
+//                    modifier = Modifier.size(20.dp)
+//                )
             }
         }
         Card(
@@ -280,7 +289,7 @@ fun DiagnosisListItem(
                     .padding(horizontal = 10.dp)
             ) {
                 Text(
-                    text = "Confidence", style = textStyle1.copy(
+                    text = "Certainty", style = textStyle1.copy(
                         fontSize = 14.sp
                     ), color = Color(0xFFDE9696) // light red color for confidence text
                 )

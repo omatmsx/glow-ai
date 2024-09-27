@@ -32,9 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mindstix.capabilities.database.entities.SkinCareRoutineEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
-import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.core.R
 import com.mindstix.home.intent.SkinCareRoutineScreenIntent
 import com.mindstix.home.intent.SkinCareRoutineScreenViewStates
@@ -51,20 +49,26 @@ fun SkinCareRoutineScreen(
     val skinCareRoutineList = state.data.skinCareRoutineList
 
     val list = skinCareRoutineList.map {
-        val icon = if(it.time=="morning") {
+        val icon = if (it.time == "morning") {
             R.drawable.ic_skin_care
-        }else{
+        } else {
             R.drawable.ic_skin_evening
 
         }
         SkinCareRoutineDataClass(
             title = it.task,
             description = it.whyWeShouldDoIt,
-            iconRes = icon
+            iconRes = icon,
+            time = it.time
         )
     }
+
+    val morningTask = list.filter { it.time == "morning" }
+    val eveningTask = list.filter { it.time == "evening" }
+
     Column(
         modifier = Modifier
+            .padding(bottom = 16.dp)
             .fillMaxWidth()
             .padding(16.dp)
     ) {
@@ -82,8 +86,32 @@ fun SkinCareRoutineScreen(
                 .padding(bottom = 60.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(list) { routine ->
-                // Display multiple routine cards
+
+
+            item {
+                Text(
+                    text = "Morning Routine", style = textStyle1.copy(
+                        fontSize = 20.sp
+                    )
+                )
+            }
+
+            items(morningTask) { routine ->
+                RoutineCard(routine = routine)
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                Text(
+                    text = "Evening Routine", style = textStyle1.copy(
+                        fontSize = 20.sp
+                    )
+                )
+            }
+            items(eveningTask) { routine ->
                 RoutineCard(routine = routine)
             }
         }
@@ -96,7 +124,7 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(8.dp),
+            .padding(0.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -130,8 +158,7 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
             Text(
                 text = routine.description, color = Color.Gray, style = textStyle1.copy(
                     fontSize = 14.sp
-                ), lineHeight = 14.sp, maxLines = 3
-                , modifier = Modifier.padding(start = 2.dp)
+                ), lineHeight = 14.sp, maxLines = 3, modifier = Modifier.padding(start = 2.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))

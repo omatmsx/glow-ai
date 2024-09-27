@@ -129,7 +129,7 @@ fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () ->
             // Product Name at the bottom
             Text(
                 text = productName, color = Color.Black, maxLines = 3, style = textStyle1.copy(
-                    fontSize = 16.sp
+                    fontSize = 14.sp
                 ), lineHeight = 14.sp, modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
