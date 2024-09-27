@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
@@ -121,8 +122,9 @@ fun HomeScreen(
                 onDismissRequest = { showDialog = false },
                 title = {
                     Text(
-                        text = "Item Details", color = Color.Black, style = textStyle2.copy(
-                            fontSize = 16.sp
+                        text = "Item Details", color = Color.Black, style = textStyle1.copy(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium
                         ), lineHeight = 16.sp, modifier = Modifier.padding(top = 5.dp)
                     )
                 },
