@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
@@ -29,7 +30,9 @@ import com.mindstix.home.intent.ClickPictureScreenIntent
 import com.mindstix.home.intent.ClickPictureScreenState
 import com.mindstix.home.intent.ClickPictureScreenViewStates
 import com.mindstix.onboarding.utils.SharedPreferenceManager
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -113,7 +116,6 @@ fun ClickPictureScreen(
                 }
             },
             onContinueClick = {
-
                 val contentResolver = context.contentResolver
                 val fileName = getFileName(context, capturedImage)
 
@@ -124,10 +126,12 @@ fun ClickPictureScreen(
                         inputStream.copyTo(outputStream)
                     }
 
-                    SharedPreferenceManager(context).userPhoto = tempFile.absolutePath
+
+                    val compressedFile = compressImageIfNeeded(tempFile,context)
+                    SharedPreferenceManager(context).userPhoto = compressedFile.absolutePath
 
                     userIntent.invoke(
-                        ClickPictureScreenIntent.NavigateToAgeScreen(tempFile)
+                        ClickPictureScreenIntent.NavigateToAgeScreen(compressedFile)
                     )
                 }
             },
@@ -158,4 +162,30 @@ fun getFileName(context: Context, uri: Uri): String {
         }
     }
     return fileName
+}
+
+private fun compressImageIfNeeded(file: File, context: Context): File {
+    val maxSizeInBytes = 2 * 1024 * 1024 // 2 MB
+    if (file.length() <= maxSizeInBytes) {
+        return file // No compression needed
+    }
+
+    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+    val outputStream = ByteArrayOutputStream()
+    var quality = 100 // Start with high quality
+
+    // Compress the image and reduce quality until it's under 2 MB
+    do {
+        outputStream.reset() // Clear the output stream
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+        quality -= 5 // Decrease quality
+    } while (outputStream.size() > maxSizeInBytes && quality > 0)
+
+    // Write the compressed image to a new file
+    val compressedFile = File(context.cacheDir, "compressed_${file.name}.${file.extension}")
+    FileOutputStream(compressedFile).use { fos ->
+        fos.write(outputStream.toByteArray())
+    }
+
+    return compressedFile
 }
