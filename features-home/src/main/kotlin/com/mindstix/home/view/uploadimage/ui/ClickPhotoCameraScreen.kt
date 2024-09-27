@@ -77,8 +77,8 @@ fun FaceDetectionUI(
 
 
             Text(
-                text = headerText, color = Color.Black, style = textStyle2.copy(
-                    fontSize = 18.sp
+                text = headerText, color = Color.Black, style = textStyle1.copy(
+                    fontSize = 24.sp
                 )
             )
             Text(

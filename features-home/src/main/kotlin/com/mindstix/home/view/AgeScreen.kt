@@ -47,7 +47,7 @@ fun AgeScreen(
     ) {
         Text(
             text = "What's your age?",
-            style = textStyle2.copy(
+            style = textStyle1.copy(
                 fontSize = 24.sp
             )
         )

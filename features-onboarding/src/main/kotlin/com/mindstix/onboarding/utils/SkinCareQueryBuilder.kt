@@ -7,8 +7,8 @@ class SkinCareQueryBuilder {
             return """
             use this data 
             $data
-            use this data and give me skin care routine based on this in below structure json only nothing else
-            [{"task":"","time":"morning/evening/night","whyWeShouldDoIt":""}]
+            use this data and give me skin care routine for both morning and evening based on this in below structure json only nothing else
+            [{"task":"","time":"morning or evening","whyWeShouldDoIt":""}]
         """.trimIndent()
         }
     }

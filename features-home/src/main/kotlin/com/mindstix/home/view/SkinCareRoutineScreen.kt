@@ -10,8 +10,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -39,11 +41,6 @@ import com.mindstix.home.intent.SkinCareRoutineScreenViewStates
 import com.mindstix.home.view.skinroutine.modal.SkinCareRoutineDataClass
 import com.mindstix.home.viewmodel.SkinCareRoutineScreenViewModel
 
-/**
- * Composable function representing the Profile Screen.
- *
- * @author Abhijeet Kokane
- */
 @Composable
 fun SkinCareRoutineScreen(
     skinCareRoutineScreenViewModel: SkinCareRoutineScreenViewModel,
@@ -54,7 +51,12 @@ fun SkinCareRoutineScreen(
     val skinCareRoutineList = state.data.skinCareRoutineList
 
     val list = skinCareRoutineList.map {
-        val icon = R.drawable.ic_skin_care
+        val icon = if(it.time=="morning") {
+            R.drawable.ic_skin_care
+        }else{
+            R.drawable.ic_skin_evening
+
+        }
         SkinCareRoutineDataClass(
             title = it.task,
             description = it.whyWeShouldDoIt,
@@ -129,7 +131,10 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
                 text = routine.description, color = Color.Gray, style = textStyle1.copy(
                     fontSize = 14.sp
                 ), lineHeight = 14.sp, maxLines = 3
+                , modifier = Modifier.padding(start = 2.dp)
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
