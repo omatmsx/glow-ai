@@ -104,14 +104,11 @@ fun HomeScreen(
         userIntent.invoke(
             HomeScreenIntent.GetRecommendedProducts
         )
-    }
-
-    LaunchedEffect(Unit) {
         userIntent.invoke(
             HomeScreenIntent.GetWeatherData
         )
     }
-
+    
     if(weatherData.isNotEmpty()){
         NotificationHelper(LocalContext.current).sendNotification(weatherData)
     }
