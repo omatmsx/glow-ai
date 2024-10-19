@@ -40,6 +40,7 @@ import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntit
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
 import com.mindstix.capabilities.presentation.theme.textStyle2
+import com.mindstix.capabilities.util.Constants.DEFAULT_BEAUTY_LIST_URLS
 import com.mindstix.capabilities.util.Constants.DEFAULT_LIST_URLS
 import com.mindstix.home.intent.HomeScreenIntent
 import com.mindstix.home.view.dashboard.modal.SkinAnalysisEntityDataModal
@@ -104,11 +105,18 @@ fun HomeScreen(
     val recommendedProduct by homeScreenViewModel.skinRecommendedProduct
     val currentIndex = remember { mutableStateOf(0) }
     val buyNowUrls = DEFAULT_LIST_URLS
+    val buyNowBeautyUrls = DEFAULT_BEAUTY_LIST_URLS
 
     val randomUrl = remember {
         buyNowUrls[currentIndex.value].also {
             // Increment the index, and reset to 0 if we reach the end of the list
             currentIndex.value = (currentIndex.value + 1) % buyNowUrls.size
+        }
+    }
+    val randomBeautyUrl = remember {
+        buyNowBeautyUrls[currentIndex.value].also {
+            // Increment the index, and reset to 0 if we reach the end of the list
+            currentIndex.value = (currentIndex.value + 1) % buyNowBeautyUrls.size
         }
     }
     val recommendedMakeupProduct by homeScreenViewModel.recommendedMakeupProduct
@@ -227,7 +235,6 @@ fun HomeScreen(
                                 fontSize = 14.sp
                             ), lineHeight = 14.sp
                         )
-
                     }
                 })
         }
@@ -246,7 +253,7 @@ fun HomeScreen(
                 onDismissRequest = { showDialog = false },
                 title = {
                     Text(
-                        text = "Item Details", color = Color.Black, style = textStyle1.copy(
+                        text = "Item Details", color = Color(0xFF2E1A47), style = textStyle1.copy(
                             fontSize = 18.sp, fontWeight = FontWeight.Medium
                         ), lineHeight = 16.sp, modifier = Modifier.padding(top = 5.dp)
                     )
@@ -256,7 +263,7 @@ fun HomeScreen(
                     Column {
                         Text(
                             text = "What it contains",
-                            color = Color.Black,
+                            color = Color(0xFF493266),
                             maxLines = 3,
                             style = textStyle1.copy(
                                 fontSize = 16.sp
@@ -275,7 +282,7 @@ fun HomeScreen(
 
                         Text(
                             text = "Why you should use this",
-                            color = Color.Black,
+                            color = Color(0xFF493266),
                             maxLines = 3,
                             style = textStyle1.copy(
                                 fontSize = 16.sp
@@ -294,10 +301,30 @@ fun HomeScreen(
                         )
                     }
                 },
-                confirmButton = {
+                dismissButton = {
                     TextButton(onClick = { showDialog = false }) {
                         Text(
-                            text = "OK", color = Color.Black, style = textStyle2.copy(
+                            text = "OK", color = Color(0xFF2E1A47), style = textStyle2.copy(
+                                fontSize = 14.sp
+                            ), lineHeight = 14.sp, modifier = Modifier.padding(end = 50.dp)
+                        )
+                    }
+                },
+                confirmButton = {
+                    FilledTonalButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(randomBeautyUrl))
+                            try {
+                                context.startActivity(intent)
+                            } catch (e: ActivityNotFoundException) {
+                                // log error or take some other action, but it would be very rare for a
+                                // device to have no browser installed
+                            }
+
+                        }, modifier = Modifier.padding(start = 10.dp)
+                    ) {
+                        Text(
+                            text = "Buy Now", color = Color(0xFF2E1A47), style = textStyle2.copy(
                                 fontSize = 14.sp
                             ), lineHeight = 14.sp
                         )

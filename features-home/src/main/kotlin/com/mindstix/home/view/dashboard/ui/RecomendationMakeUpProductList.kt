@@ -20,6 +20,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
-import com.mindstix.capabilities.util.Constants.DEFAULT_PRODUCT_IMAGE
+import com.mindstix.capabilities.util.Constants.DEFAULT_BEAUTY_PRODUCT_IMAGE
 import com.mindstix.core.R
 
 
@@ -41,8 +42,9 @@ fun RecommendedMakeUpProductsUI(
     recommendedProduct: List<RecommendedMakeupProductEntity>,
     onClick: (RecommendedMakeupProductEntity) -> Unit
 ) {
+    val currentIndex = remember { mutableStateOf(0) }
     val recommendedProductList = recommendedProduct
-    val productImgList = DEFAULT_PRODUCT_IMAGE
+    val beautyProductImgList = DEFAULT_BEAUTY_PRODUCT_IMAGE
 
     Column(
         modifier = Modifier
@@ -56,6 +58,7 @@ fun RecommendedMakeUpProductsUI(
             style = textStyle1.copy(
                 fontSize = 20.sp
             ),
+            color = Color(0xFF493266),
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -65,7 +68,13 @@ fun RecommendedMakeUpProductsUI(
         ) {
             // Example of 4 items
             items(recommendedProductList) { item ->
-                val randomImage = remember { productImgList.random() }
+                // Get image from the current index
+                val randomImage = remember {
+                    beautyProductImgList[currentIndex.value].also {
+                        // Increment the index, and reset it to 0 if we reach the end of the list
+                        currentIndex.value = (currentIndex.value + 1) % beautyProductImgList.size
+                    }
+                }
                 ProductMakeUpCard(
                     productName = item.productName, productImg = randomImage
                 ) // Replace with your product image resource
@@ -102,7 +111,7 @@ fun ProductMakeUpCard(productName: String, productImg: Int, onQuestionMarkClick:
                 Image(
                     painter = rememberImagePainter(data = productImg), // Replace with your product image
                     contentDescription = "Product Image",
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .padding(top = 20.dp)
                         .height(100.dp)
@@ -126,9 +135,14 @@ fun ProductMakeUpCard(productName: String, productImg: Int, onQuestionMarkClick:
 
             // Product Name at the bottom
             Text(
-                text = productName, color = Color.Black, maxLines = 3, style = textStyle1.copy(
+                text = productName,
+                color = Color(0xFF493266),
+                maxLines = 3,
+                style = textStyle1.copy(
                     fontSize = 14.sp
-                ), lineHeight = 14.sp, modifier = Modifier.align(Alignment.CenterHorizontally)
+                ),
+                lineHeight = 14.sp,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
     }

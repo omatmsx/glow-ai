@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
+import com.mindstix.capabilities.util.Constants.DEFAULT_PRODUCT_IMAGE
 import com.mindstix.core.R
 
 
@@ -42,13 +43,7 @@ fun RecommendedProductsUI(
 ) {
     val recommendedProductList = recommendedProduct
     val currentIndex = remember { mutableStateOf(0) }
-    val productImgList = listOf(
-        R.drawable.ic_skinfirst,
-        R.drawable.ic_hydratant,
-        R.drawable.ic_concentarte,
-        R.drawable.ic_serium,
-        R.drawable.ic_biorest,
-    )
+    val productImgList = DEFAULT_PRODUCT_IMAGE
 
     Column(
         modifier = Modifier
@@ -57,9 +52,13 @@ fun RecommendedProductsUI(
     ) {
         // Title
         Text(
-            text = "Skincare Products Chosen Just for You", fontSize = 18.sp, style = textStyle1.copy(
+            text = "Skincare Products Chosen Just for You",
+            fontSize = 18.sp,
+            style = textStyle1.copy(
                 fontSize = 20.sp
-            ), color = Color(0xFF2E1A47), modifier = Modifier.padding(bottom = 16.dp)
+            ),
+            color = Color(0xFF2E1A47),
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
         // Horizontal list of products
