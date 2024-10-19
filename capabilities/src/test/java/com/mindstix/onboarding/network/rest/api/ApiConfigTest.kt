@@ -23,7 +23,7 @@ import retrofit2.Response
 /**
  * This unit test exercises the ApiConfig.
  *
- * @author Abhishek Singh
+ * @author Alhaj SIddiqui
  */
 class ApiConfigTest {
     private val apiConfigMock: ApiConfig = mockk()

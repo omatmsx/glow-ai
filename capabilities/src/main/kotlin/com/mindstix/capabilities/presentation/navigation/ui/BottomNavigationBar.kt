@@ -26,7 +26,7 @@ import com.mindstix.capabilities.presentation.theme.fredokaFontFamily
  *
  * @param navController The NavController used for navigation within the app.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Composable
 fun BottomNavigationBar(navController: NavController) {

@@ -17,7 +17,7 @@ import timber.log.Timber
  * Logger provides a simple logging mechanism for tracking events
  * and debugging information in the application.
  *
- * @author Nirav Patel, Pranav Hadawale
+ * @author Alhaj SIddiqui
  */
 object Logger {
     private val loggerClassName = this::class.java.name

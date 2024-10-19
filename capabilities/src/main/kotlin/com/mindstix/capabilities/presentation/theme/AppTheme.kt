@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
  * @param darkTheme Flag to indicate whether the theme is in dark mode or light mode.
  * @param content The content block to apply the theme to.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Composable
 fun AppTheme(

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 /**
  * Implementation of [LoginUseCase] responsible for providing data for the Login Screen.
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 class LoginUseCaseImpl
 @Inject

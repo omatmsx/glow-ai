@@ -8,7 +8,7 @@ package com.mindstix.capabilities.presentation.navigation
 /**
  * Sealed class representing different destinations in the app.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 sealed class Destinations(val route: String) {
     object SplashDestination : Destinations("splash")

@@ -36,7 +36,7 @@ interface NavEffect
  * @param State: The view state representing the current state of the UI.
  * @param Effect: The navigation effect representing UI-related side effects.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 abstract class BaseViewModel<Intent : UserIntent, State : ViewState, Effect : NavEffect> :
     ViewModel() {

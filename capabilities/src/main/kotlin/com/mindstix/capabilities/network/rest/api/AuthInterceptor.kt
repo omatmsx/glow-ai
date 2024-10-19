@@ -21,7 +21,7 @@ import javax.inject.Singleton
  * @param authorizationHeaderValue The current Authorization Header value.
  * @param anonymousHeaderValue The default or anonymous Authorization Header value.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Singleton
 class AuthInterceptor

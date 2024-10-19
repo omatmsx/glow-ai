@@ -7,7 +7,7 @@
 /**
  * Define flavor dimensions for different markets and app
  *
- * @author Nirav Patel
+ * @author Alhaj SIddiqui
  */
 android {
     flavorDimensions 'market', 'app'

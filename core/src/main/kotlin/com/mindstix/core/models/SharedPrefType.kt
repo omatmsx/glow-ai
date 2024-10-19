@@ -15,7 +15,7 @@ package com.mindstix.core.models
  * @see SecuredSharedPref
  * @see NormalSharedPref
  *
- * @author Nirav Patel
+ * @author Alhaj SIddiqui
  */
 enum class SharedPrefType {
     SecuredSharedPref,

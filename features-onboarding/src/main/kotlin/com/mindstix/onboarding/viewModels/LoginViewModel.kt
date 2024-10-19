@@ -19,7 +19,7 @@ import javax.inject.Inject
  *
  * @param loginUseCase The use case responsible for providing login-related data.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @HiltViewModel
 class LoginViewModel

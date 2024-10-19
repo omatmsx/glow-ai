@@ -23,7 +23,7 @@ import com.mindstix.capabilities.presentation.theme.AppTheme
 /**
  * Composable function demonstrating the usage of AlertDialog in Jetpack Compose.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Composable
 fun AlertDialogSample() {

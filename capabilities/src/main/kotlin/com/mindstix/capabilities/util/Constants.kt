@@ -8,7 +8,7 @@ package com.mindstix.capabilities.util
 /**
  * Object containing constants used in the application.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 object Constants {
     // Constant for named arguments in Hilt to avoid the conflict with different provider.

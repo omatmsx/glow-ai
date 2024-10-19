@@ -38,7 +38,7 @@ import org.json.JSONObject
 /**
  * Defines the navigation graph for the Splash screen.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 fun NavGraphBuilder.splashNavigationGraph(
     navController: NavHostController,

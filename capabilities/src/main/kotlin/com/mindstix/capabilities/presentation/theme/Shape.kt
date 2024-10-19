@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Shapes for defining corner shapes
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 
 val Shapes =

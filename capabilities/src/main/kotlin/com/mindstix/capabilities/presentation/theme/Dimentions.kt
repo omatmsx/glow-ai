@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Use density pixel values across the app using below defined spacing constants
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 // Internal spacing
 val InternalSpacingSmall = 4.dp // Used for smaller internal spacing within components

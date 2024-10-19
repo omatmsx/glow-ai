@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 /**
  * Composable function representing the Settings Screen.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Composable
 fun SettingsScreen() {

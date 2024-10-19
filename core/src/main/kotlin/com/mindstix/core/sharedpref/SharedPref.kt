@@ -24,7 +24,7 @@ import com.mindstix.core.models.SharedPrefType
  * @see SharedPrefType
  * @see android.content.SharedPreferences
  *
- * @author Nirav Patel
+ * @author Alhaj SIddiqui
  */
 class SharedPref(context: Context, type: SharedPrefType, private val fileName: String) {
     private val TAG = SharedPref::class.java.simpleName

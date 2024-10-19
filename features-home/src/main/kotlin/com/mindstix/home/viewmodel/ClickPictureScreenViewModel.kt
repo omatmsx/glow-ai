@@ -41,6 +41,9 @@ class ClickPictureScreenViewModel @Inject constructor(
                     emitLoading("Generating Skin care routine for you")
                     skinAnalysisUseCase.getSkinCare(response)
 
+                    emitLoading("Fetching best make up products for your skin type")
+                    skinAnalysisUseCase.getRecommendedMakeUpProducts(response)
+
                     emitLoading("Fetching suited products to make your skin glow")
                     skinAnalysisUseCase.getRecommendedProducts(response)
 

@@ -18,4 +18,6 @@ interface SkinAnalysisUseCase {
     suspend fun getTipOfTheDay(
         temp: String, weatherCondition: String, currentTime: String
     ): String
+
+    suspend fun getRecommendedMakeUpProducts(skinAnalysisEntity: SkinAnalysisEntity)
 }

@@ -48,6 +48,11 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
         sharedPreferenceManager.isLoggedIn = true
     }
 
+    override suspend fun getRecommendedMakeUpProducts(skinAnalysisEntity: SkinAnalysisEntity) {
+        val recommendedProducts = skinAnalysisRepository.getRecommendedMakeUpProducts(skinAnalysisEntity)
+        skinAnalysisRepository.saveMakeUpProductEntity(recommendedProducts)
+    }
+
     override suspend fun getListOfRecommendedProduct(): List<SkincareProductEntity> {
         val response = skinAnalysisRepository.getAllSuggestedProduct()
         println("response1: $response")

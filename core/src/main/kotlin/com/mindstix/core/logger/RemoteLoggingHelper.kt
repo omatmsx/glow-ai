@@ -7,7 +7,7 @@ package com.mindstix.core.logger
 /**
  * Helper class for performing remote logging operations.
  *
- * @author Pranav Hadawale
+ * @author Alhaj SIddiqui
  */
 class RemoteLoggingHelper {
     /**

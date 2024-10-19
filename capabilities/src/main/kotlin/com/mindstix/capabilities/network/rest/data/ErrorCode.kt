@@ -7,7 +7,7 @@ package com.mindstix.capabilities.network.rest.data
 /**
  * This class contains app-level error codes (not HTTP-related).
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 object ErrorCode {
     const val NETWORK_NOT_AVAILABLE = 1001

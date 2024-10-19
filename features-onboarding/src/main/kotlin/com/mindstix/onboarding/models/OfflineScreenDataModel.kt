@@ -15,7 +15,7 @@ import com.mindstix.core.utils.emptyValue
  * @param imageUrl The URL of the image to be displayed on the offline screen.
  * @param offlineCTALabel The optional label for the offline call-to-action button.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 data class OfflineScreenDataModel(
     var title: String,

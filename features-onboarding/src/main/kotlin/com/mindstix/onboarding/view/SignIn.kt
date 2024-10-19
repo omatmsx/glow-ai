@@ -23,7 +23,7 @@ import com.mindstix.capabilities.presentation.theme.login_in_button_bg_color
 import com.mindstix.features.login.R
 
 /**
- * @author Asim Shah
+ * @author Alhaj SIddiqui
  */
 
 @Composable

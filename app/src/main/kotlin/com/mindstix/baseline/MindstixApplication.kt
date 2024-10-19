@@ -20,7 +20,7 @@ import dagger.hilt.android.HiltAndroidApp
  * Hilt is a dependency injection library for Android that simplifies the process
  * of managing dependencies and performing dependency injection in Android apps.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @HiltAndroidApp
 class MindstixApplication : Application() {

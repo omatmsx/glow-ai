@@ -48,7 +48,7 @@ import com.mindstix.onboarding.intents.LoginIntent
 import com.mindstix.onboarding.intents.LoginViewStates
 
 /**
- * @author Asim Shah
+ * @author Alhaj SIddiqui
  */
 
 @OptIn(ExperimentalComposeUiApi::class)
