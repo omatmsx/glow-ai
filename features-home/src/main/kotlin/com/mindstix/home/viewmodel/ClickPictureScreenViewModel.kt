@@ -55,7 +55,30 @@ class ClickPictureScreenViewModel @Inject constructor(
 
                 }
             }
+
+            is ClickPictureScreenIntent.NavigateToHomeScreen -> {
+                viewModelScope.launch(handler) {
+                    progressLoader(true)
+                    emitLoading("Analysing your Face")
+                    val response = skinAnalysisUseCase.getSkinAnalysis(intent.imagePath)
+
+                    emitLoading("Generating Skin care routine for you")
+                    skinAnalysisUseCase.getSkinCare(response)
+
+                    emitLoading("Fetching suited products to make your skin glow")
+                    skinAnalysisUseCase.getRecommendedProducts(response)
+
+                    progressLoader(false)
+
+                    sendNavEffect {
+                        ClickPictureScreenNavEffect.NavigateToHomeScreen
+                    }
+
+                }
+            }
         }
+
+
     }
 
     private fun renderClickPictureScreen(ageScreenDataModel: ClickPictureScreenDataModel) {

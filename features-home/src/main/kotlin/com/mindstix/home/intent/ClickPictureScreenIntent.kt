@@ -8,10 +8,16 @@ import java.io.File
 
 sealed class ClickPictureScreenIntent : UserIntent {
     data class NavigateToAgeScreen(val imagePath: File): ClickPictureScreenIntent()
+
+    data class NavigateToHomeScreen(val imagePath: File): ClickPictureScreenIntent()
+
 }
 
 sealed class ClickPictureScreenNavEffect : NavEffect {
     data object NavigateToAgeScreen: ClickPictureScreenNavEffect()
+
+    data object NavigateToHomeScreen: ClickPictureScreenNavEffect()
+
 }
 
 sealed class ClickPictureScreenViewStates {

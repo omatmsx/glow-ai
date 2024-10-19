@@ -25,10 +25,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.mindstix.core.logger.Logger
 import com.mindstix.home.intent.ClickPictureScreenIntent
 import com.mindstix.home.intent.ClickPictureScreenState
 import com.mindstix.home.intent.ClickPictureScreenViewStates
 import com.mindstix.onboarding.utils.SharedPreferenceManager
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -70,8 +75,6 @@ fun ClickPictureScreen(
         }
 
     val snackbarHostState = remember { SnackbarHostState() }
-
-
 
     LaunchedEffect(state) {
         if (state.ageScreenViewState is ClickPictureScreenViewStates.ErrorState) {
@@ -125,13 +128,14 @@ fun ClickPictureScreen(
                         inputStream.copyTo(outputStream)
                     }
 
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val compressedFile = compressImageIfNeeded(tempFile,context)
+                        SharedPreferenceManager(context).userPhoto = compressedFile.absolutePath
 
-                    val compressedFile = compressImageIfNeeded(tempFile, context)
-                    SharedPreferenceManager(context).userPhoto = compressedFile.absolutePath
-
-                    userIntent.invoke(
-                        ClickPictureScreenIntent.NavigateToAgeScreen(compressedFile)
-                    )
+                        userIntent.invoke(
+                            ClickPictureScreenIntent.NavigateToHomeScreen(compressedFile)
+                        )
+                    }
                 }
             },
             faceImagePainter = capturedImage,
@@ -163,28 +167,14 @@ fun getFileName(context: Context, uri: Uri): String {
     return fileName
 }
 
-private fun compressImageIfNeeded(file: File, context: Context): File {
+private suspend fun compressImageIfNeeded(file: File, context: Context): File {
     val maxSizeInBytes = 2 * 1024 * 1024 // 2 MB
     if (file.length() <= maxSizeInBytes) {
         return file // No compression needed
     }
+    Logger.d { "###### FILE SIZE ${file.length()}" }
 
-    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-    val outputStream = ByteArrayOutputStream()
-    var quality = 100 // Start with high quality
-
-    // Compress the image and reduce quality until it's under 2 MB
-    do {
-        outputStream.reset() // Clear the output stream
-        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
-        quality -= 5 // Decrease quality
-    } while (outputStream.size() > maxSizeInBytes && quality > 0)
-
-    // Write the compressed image to a new file
-    val compressedFile = File(context.cacheDir, "compressed_${file.name}.${file.extension}")
-    FileOutputStream(compressedFile).use { fos ->
-        fos.write(outputStream.toByteArray())
-    }
-
-    return compressedFile
+    val compressedImageFile = Compressor.compress(context, file)
+    Logger.d { "###### COMPRESSED IMAGE SIZE ${compressedImageFile.length()}" }
+    return compressedImageFile
 }

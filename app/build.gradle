@@ -168,7 +168,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
     implementation Deps.activity_compose    // Required for rememberLauncherForActivityResult
-
 }
 
 def getCurrentFlavor() {

@@ -27,6 +27,11 @@ fun ClickPictureScreenDestination(
                 navController.popBackStack()
                 navController.navigate(Destinations.AgeScreenDestination.route)
             }
+
+            is ClickPictureScreenNavEffect.NavigateToHomeScreen -> {
+                navController.popBackStack()
+                navController.navigate(Destinations.HomeDestination.route)
+            }
         }
     }
 
