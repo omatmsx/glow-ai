@@ -7,8 +7,6 @@ import com.mindstix.home.model.ClickPictureScreenDataModel
 import java.io.File
 
 sealed class ClickPictureScreenIntent : UserIntent {
-    data class NavigateToAgeScreen(val imagePath: File): ClickPictureScreenIntent()
-
     data class NavigateToHomeScreen(val imagePath: File): ClickPictureScreenIntent()
 
 }

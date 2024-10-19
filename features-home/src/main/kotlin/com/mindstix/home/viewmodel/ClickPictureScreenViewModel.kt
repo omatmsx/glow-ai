@@ -32,7 +32,8 @@ class ClickPictureScreenViewModel @Inject constructor(
 
     override fun handleIntent(intent: ClickPictureScreenIntent) {
         when (intent) {
-            is ClickPictureScreenIntent.NavigateToAgeScreen -> {
+
+            is ClickPictureScreenIntent.NavigateToHomeScreen -> {
                 viewModelScope.launch(handler) {
                     progressLoader(true)
                     emitLoading("Analysing your Face")
@@ -50,32 +51,12 @@ class ClickPictureScreenViewModel @Inject constructor(
                     progressLoader(false)
 
                     sendNavEffect {
-                        ClickPictureScreenNavEffect.NavigateToAgeScreen
-                    }
-
-                }
-            }
-
-            is ClickPictureScreenIntent.NavigateToHomeScreen -> {
-                viewModelScope.launch(handler) {
-                    progressLoader(true)
-                    emitLoading("Analysing your Face")
-                    val response = skinAnalysisUseCase.getSkinAnalysis(intent.imagePath)
-
-                    emitLoading("Generating Skin care routine for you")
-                    skinAnalysisUseCase.getSkinCare(response)
-
-                    emitLoading("Fetching suited products to make your skin glow")
-                    skinAnalysisUseCase.getRecommendedProducts(response)
-
-                    progressLoader(false)
-
-                    sendNavEffect {
                         ClickPictureScreenNavEffect.NavigateToHomeScreen
                     }
 
                 }
             }
+
         }
 
 
