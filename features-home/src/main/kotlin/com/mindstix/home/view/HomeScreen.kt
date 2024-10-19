@@ -6,18 +6,21 @@
 package com.mindstix.home.view
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -96,7 +99,21 @@ fun HomeScreen(
     }
 
     val recommendedProduct by homeScreenViewModel.skinRecommendedProduct
+    val currentIndex = remember { mutableStateOf(0) }
+    val buyNowUrls = listOf(
+        "https://cyzone.tiendabelcorp.cl/contorno-de-ojos-eye-detox-skin-first/p",
+        "https://lbel.tiendabelcorp.cl/set-acido-hialuronico-retinol/p",
+        "https://lbel.tiendabelcorp.cl/set-nocturne-rostro-y-ojos-cl/p",
+        "https://lbel.tiendabelcorp.cl/concentre-total-rostro-crema-antiedad-cc/p",
+        "https://lbel.tiendabelcorp.cl/botanology-locion-hidratante-corporal-400-ml/p"
+    )
 
+    val randomUrl = remember {
+        buyNowUrls[currentIndex.value].also {
+            // Increment the index, and reset to 0 if we reach the end of the list
+            currentIndex.value = (currentIndex.value + 1) % buyNowUrls.size
+        }
+    }
     LaunchedEffect(true) {
         userIntent.invoke(
             HomeScreenIntent.GetSkinAnalysisData
@@ -108,15 +125,15 @@ fun HomeScreen(
             HomeScreenIntent.GetWeatherData
         )
     }
-    
-    if(weatherData.isNotEmpty()){
+
+    if (weatherData.isNotEmpty()) {
         NotificationHelper(LocalContext.current).sendNotification(weatherData)
     }
 
 
     var showDialog by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf<SkincareProductEntity?>(null) }
-
+    val context = LocalContext.current
 
     if (showDialog && selectedItem != null) {
         // Display the dialog
@@ -132,9 +149,8 @@ fun HomeScreen(
                 onDismissRequest = { showDialog = false },
                 title = {
                     Text(
-                        text = "Item Details", color = Color.Black, style = textStyle1.copy(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Medium
+                        text = "Item Details", color = Color(0xFF2E1A47), style = textStyle1.copy(
+                            fontSize = 18.sp, fontWeight = FontWeight.Medium
                         ), lineHeight = 16.sp, modifier = Modifier.padding(top = 5.dp)
                     )
                 },
@@ -143,7 +159,7 @@ fun HomeScreen(
                     Column {
                         Text(
                             text = "What it contains",
-                            color = Color.Black,
+                            color = Color(0xFF493266),
                             maxLines = 3,
                             style = textStyle1.copy(
                                 fontSize = 16.sp
@@ -162,7 +178,7 @@ fun HomeScreen(
 
                         Text(
                             text = "Why you should use this",
-                            color = Color.Black,
+                            color = Color(0xFF493266),
                             maxLines = 3,
                             style = textStyle1.copy(
                                 fontSize = 16.sp
@@ -181,13 +197,34 @@ fun HomeScreen(
                         )
                     }
                 },
-                confirmButton = {
+                dismissButton = {
                     TextButton(onClick = { showDialog = false }) {
                         Text(
-                            text = "OK", color = Color.Black, style = textStyle2.copy(
+                            text = "OK", color = Color(0xFF2E1A47), style = textStyle2.copy(
+                                fontSize = 14.sp
+                            ), lineHeight = 14.sp, modifier = Modifier.padding(end = 50.dp)
+                        )
+                    }
+                },
+                confirmButton = {
+                    FilledTonalButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(randomUrl))
+                            try {
+                                context.startActivity(intent)
+                            } catch (e: ActivityNotFoundException) {
+                                // log error or take some other action, but it would be very rare for a
+                                // device to have no browser installed
+                            }
+
+                        }, modifier = Modifier.padding(start = 10.dp)
+                    ) {
+                        Text(
+                            text = "Buy Now", color = Color(0xFF2E1A47), style = textStyle2.copy(
                                 fontSize = 14.sp
                             ), lineHeight = 14.sp
                         )
+
                     }
                 })
         }

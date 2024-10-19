@@ -37,7 +37,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mindstix.capabilities.presentation.theme.textStyle1
-import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.core.R
 import com.mindstix.home.intent.ClickPictureScreenState
 import com.mindstix.home.intent.ClickPictureScreenViewStates
@@ -75,9 +74,8 @@ fun FaceDetectionUI(
             verticalArrangement = Arrangement.Top,
         ) {
 
-
             Text(
-                text = headerText, color = Color.Black, style = textStyle1.copy(
+                text = headerText, color = Color(0xFF2E1A47), style = textStyle1.copy(
                     fontSize = 24.sp
                 )
             )
@@ -90,7 +88,7 @@ fun FaceDetectionUI(
                 modifier = Modifier.padding(top = 5.dp)
             )
             Text(
-                text = headerDesc2, color = Color(0xFF625B71), style = textStyle1.copy(
+                text = headerDesc2, color = Color(0xFF493266), style = textStyle1.copy(
                     fontSize = 14.sp
                 ),
                 modifier = Modifier.padding(top = 5.dp)
@@ -107,7 +105,8 @@ fun FaceDetectionUI(
 
             Box(
                 modifier = Modifier
-                    .height(300.dp).fillMaxWidth(),
+                    .height(300.dp)
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center,
             ) {
                 Box(
@@ -186,7 +185,7 @@ fun FaceDetectionUI(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEAE6F8))
                 ) {
                     Text(
-                        text = galleryText, color = Color(0xFF625B71), style = textStyle1.copy(
+                        text = galleryText, color = Color(0xFF2E1A47), style = textStyle1.copy(
                             fontSize = 16.sp
                         )
                     )
@@ -217,7 +216,7 @@ fun FaceDetectionUI(
                 enabled = faceImagePainter.path?.isNotEmpty() == true
             ) {
                 Text(
-                    text = continueText, color = Color(0xFF625B71), style = textStyle1.copy(
+                    text = continueText, color = Color(0xFF2E1A47), style = textStyle1.copy(
                         fontSize = 16.sp
                     )
                 )

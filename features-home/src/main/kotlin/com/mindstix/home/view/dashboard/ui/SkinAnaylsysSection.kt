@@ -16,13 +16,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.mindstix.capabilities.presentation.theme.textStyle1
-import com.mindstix.capabilities.presentation.theme.textStyle2
-import com.mindstix.core.R
 import com.mindstix.onboarding.utils.SharedPreferenceManager
 import java.io.File
 
@@ -44,7 +41,7 @@ fun SkinAnalysisUI() {
                 fontSize = 24.sp
             ),
             modifier = Modifier.padding(bottom = 8.dp),
-            color = Color.Black
+            color = Color(0xFF2E1A47)
         )
 
         // Image card for Skin Analysis

@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.mindstix.capabilities.presentation.navigation.Destinations
 import com.mindstix.capabilities.presentation.theme.fredokaFontFamily
@@ -47,7 +48,11 @@ fun BottomNavigationBar(navController: NavController) {
             NavigationBarItem(
                 alwaysShowLabel = true,
                 icon = { Icon(item.icon, contentDescription = item.name) },
-                label = { Text(item.name, fontFamily = fredokaFontFamily) },
+                label = {
+                    Text(
+                        item.name, fontFamily = fredokaFontFamily, color = Color(0xFF493266)
+                    )
+                },
                 selected = selectedItem == index,
                 onClick = {
                     selectedItem = index

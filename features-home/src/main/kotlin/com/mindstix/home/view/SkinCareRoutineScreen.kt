@@ -78,7 +78,8 @@ fun SkinCareRoutineScreen(
             modifier = Modifier.padding(bottom = 16.dp),
             style = textStyle1.copy(
                 fontSize = 24.sp
-            )
+            ),
+            color = Color(0xFF493266),
         )
         LazyColumn(
             modifier = Modifier
@@ -87,12 +88,13 @@ fun SkinCareRoutineScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-
             item {
                 Text(
-                    text = "Morning Routine", style = textStyle1.copy(
+                    text = "Morning Routine",
+                    style = textStyle1.copy(
                         fontSize = 20.sp
-                    )
+                    ),
+                    color = Color(0xFF493266)
                 )
             }
 
@@ -108,7 +110,8 @@ fun SkinCareRoutineScreen(
                 Text(
                     text = "Evening Routine", style = textStyle1.copy(
                         fontSize = 20.sp
-                    )
+                    ),
+                    color = Color(0xFF493266)
                 )
             }
             items(eveningTask) { routine ->
@@ -147,10 +150,14 @@ fun RoutineCard(routine: SkinCareRoutineDataClass) {
                         .background(Color.Transparent, shape = CircleShape)
                 )
                 Text(
-                    text = routine.title, style = textStyle1.copy(
+                    text = routine.title,
+                    style = textStyle1.copy(
                         fontSize = 16.sp, fontWeight = FontWeight.Medium
-                    ), lineHeight = 16.sp,
-                    maxLines = 2, color = Color.Black, modifier = Modifier.padding(bottom = 4.dp)
+                    ),
+                    lineHeight = 16.sp,
+                    maxLines = 2,
+                    color = Color(0xFF493266),
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
 

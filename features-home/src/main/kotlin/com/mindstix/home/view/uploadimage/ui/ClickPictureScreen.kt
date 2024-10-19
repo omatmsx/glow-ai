@@ -3,7 +3,6 @@ package com.mindstix.home.view.uploadimage.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -37,7 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-@SuppressLint("Recycle")
+@SuppressLint("Recycle", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ClickPictureScreen(
     userIntent: (ClickPictureScreenIntent) -> Unit,
@@ -127,7 +126,7 @@ fun ClickPictureScreen(
                     }
 
 
-                    val compressedFile = compressImageIfNeeded(tempFile,context)
+                    val compressedFile = compressImageIfNeeded(tempFile, context)
                     SharedPreferenceManager(context).userPhoto = compressedFile.absolutePath
 
                     userIntent.invoke(

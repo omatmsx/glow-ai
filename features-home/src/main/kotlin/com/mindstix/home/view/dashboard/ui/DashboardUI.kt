@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -150,7 +149,7 @@ fun DiagnosisList(
             firstItem.poresJawConfidence
         ),
         DiagnosisListItemData(
-            "Wrinkles (Left Eyelids)",
+            " Left Wrinkles",
             firstItem.leftEyelidsValue,
             R.drawable.ic_acne4,
             firstItem.leftEyelidsConfidence
@@ -174,7 +173,7 @@ fun DiagnosisList(
             firstItem.moleConfidence
         ),
         DiagnosisListItemData(
-            "Wrinkles (Right Eyelids)",
+            "Right Wrinkles",
             firstItem.rightEyelidsValue,
             R.drawable.ic_acne3,
             firstItem.rightEyelidsConfidence
@@ -251,7 +250,8 @@ fun DiagnosisListItem(
                     Text(
                         text = itemName, style = textStyle1.copy(
                             fontSize = 14.sp
-                        )
+                        ),
+                        color = Color(0xFF493266)
                     )
                 }
                 Spacer(modifier = Modifier.weight(1F))
@@ -296,7 +296,9 @@ fun DiagnosisListItem(
                 Text(
                     text = "${percentage}%", style = textStyle1.copy(
                         fontSize = 14.sp
-                    ), modifier = Modifier.padding(top = 5.dp)
+                    ),
+                    color = Color(0xFF493266),
+                    modifier = Modifier.padding(top = 5.dp)
                 )
             }
         }
