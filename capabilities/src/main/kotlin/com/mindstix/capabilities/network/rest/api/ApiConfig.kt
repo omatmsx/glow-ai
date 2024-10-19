@@ -20,7 +20,7 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
 
-
+const val apiKey = ""
 interface ApiConfig {
 
     @Multipart
@@ -36,7 +36,7 @@ interface ApiConfig {
 
     @Headers(
         "Content-Type: application/json",
-        "Authorization: Bearer "
+        "Authorization: Bearer $apiKey"
     )
     @POST("https://api.openai.com/v1/chat/completions")
     suspend fun createChatCompletion(@Body request: ChatCompletionRequest?): Response<AiResponseModel?>?
