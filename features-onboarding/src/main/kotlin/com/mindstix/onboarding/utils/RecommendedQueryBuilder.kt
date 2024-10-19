@@ -2,7 +2,7 @@ package com.mindstix.onboarding.utils
 
 class RecommendedQueryBuilder {
 
-    companion object{
+    companion object{ 
         fun getQuery(data:String): String {
             return """
             use this data 
