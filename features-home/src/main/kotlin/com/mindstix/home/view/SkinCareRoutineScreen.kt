@@ -2,7 +2,6 @@
  * Copyright (c) 2023 Mindstix Software Labs
  * All rights reserved.
  */
-
 package com.mindstix.home.view
 
 import android.content.ActivityNotFoundException
@@ -23,7 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -32,7 +31,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.mindstix.capabilities.presentation.theme.textStyle1
 import com.mindstix.capabilities.presentation.theme.textStyle2
 import com.mindstix.capabilities.util.Constants
@@ -61,33 +60,32 @@ fun SkinCareRoutineScreen(
     userIntent: (SkinCareRoutineScreenIntent) -> Unit
 ) {
 
-    val skinCareRoutineList = state.data.skinCareRoutineList
+    val skinCareRoutineList = remember { state.data.skinCareRoutineList }
 
-    val list = skinCareRoutineList.map {
-        val icon = if (it.time == "morning") {
-            R.drawable.ic_skin_care
-        } else {
-            R.drawable.ic_skin_evening
-
+    val list = remember {
+        skinCareRoutineList.map {
+            val icon = if (it.time == "morning") {
+                R.drawable.ic_skin_care
+            } else {
+                R.drawable.ic_skin_evening
+            }
+            SkinCareRoutineDataClass(
+                title = it.task,
+                description = it.whyWeShouldDoIt,
+                iconRes = icon,
+                time = it.time,
+                produtName = it.productName
+            )
         }
-        SkinCareRoutineDataClass(
-            title = it.task,
-            description = it.whyWeShouldDoIt,
-            iconRes = icon,
-            time = it.time,
-            produtName = it.productName
-        )
     }
 
-    val morningTask = list.filter { it.time == "morning" }
-    val eveningTask = list.filter { it.time == "evening" }
-    val currentIndex = remember { mutableStateOf(0) }
+    val morningTask = remember { list.filter { it.time == "morning" } }
+    val eveningTask = remember { list.filter { it.time == "evening" } }
     val productImgList = Constants.DEFAULT_PRODUCT_IMAGE
     val productUrlList = Constants.DEFAULT_LIST_URLS
 
     Column(
         modifier = Modifier
-            .padding(bottom = 16.dp)
             .fillMaxWidth()
             .padding(16.dp)
     ) {
@@ -100,6 +98,7 @@ fun SkinCareRoutineScreen(
             ),
             color = Color(0xFF493266),
         )
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -115,19 +114,10 @@ fun SkinCareRoutineScreen(
                 )
             }
 
-            items(morningTask) { routine ->
-                val randomImage = remember {
-                    productImgList[currentIndex.value].also {
-                        // Increment the index, and reset it to 0 if we reach the end of the list
-                        currentIndex.value = (currentIndex.value + 1) % productImgList.size
-                    }
-                }
-                val randomUrl = remember {
-                    productUrlList[currentIndex.value].also {
-                        // Increment the index, and reset it to 0 if we reach the end of the list
-                        currentIndex.value = (currentIndex.value + 1) % productUrlList.size
-                    }
-                }
+            itemsIndexed(morningTask) { index, routine ->
+                val i = index % productImgList.size
+                val randomImage = productImgList[i]
+                val randomUrl = productUrlList[i]
                 RoutineCard(routine = routine, randomImage, randomUrl)
             }
 
@@ -142,19 +132,11 @@ fun SkinCareRoutineScreen(
                     ), color = Color(0xFF493266)
                 )
             }
-            items(eveningTask) { routine ->
-                val randomImage = remember {
-                    productImgList[currentIndex.value].also {
-                        // Increment the index, and reset it to 0 if we reach the end of the list
-                        currentIndex.value = (currentIndex.value + 1) % productImgList.size
-                    }
-                }
-                val randomUrl = remember {
-                    productUrlList[currentIndex.value].also {
-                        // Increment the index, and reset it to 0 if we reach the end of the list
-                        currentIndex.value = (currentIndex.value + 1) % productUrlList.size
-                    }
-                }
+
+            itemsIndexed(eveningTask) { index, routine ->
+                val i = index % productImgList.size
+                val randomImage = productImgList[i]
+                val randomUrl = productUrlList[i]
                 RoutineCard(routine = routine, randomImage, randomUrl)
             }
         }
@@ -235,25 +217,25 @@ fun RoutineCard(routine: SkinCareRoutineDataClass, productImgList: Int, randomUr
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    // Product Image (replace with actual image resource)
-                    Image(
-                        painter = painterResource(id = productImgList), // Replace with actual image resource
-                        contentDescription = "LBEL Defense Total",
-                        contentScale = ContentScale.Fit,
+                    // Product Image (use AsyncImage for better performance)
+                    AsyncImage(
+                        model = productImgList,
+                        contentDescription = "Product Image",
                         modifier = Modifier
                             .size(50.dp)
-                            .clip(RoundedCornerShape(8.dp))
+                            .clip(RoundedCornerShape(8.dp)),
+                        contentScale = ContentScale.Fit
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    // Description
+
+                    // Product Name
                     Text(
                         text = routine.produtName,
                         color = Color.Gray,
                         style = textStyle1.copy(
                             fontSize = 12.sp,
                             textAlign = TextAlign.Center,
-
-                            ),
+                        ),
                         lineHeight = 12.sp,
                         maxLines = 2,
                         modifier = Modifier.padding(start = 2.dp)
@@ -266,12 +248,11 @@ fun RoutineCard(routine: SkinCareRoutineDataClass, productImgList: Int, randomUr
                             try {
                                 context.startActivity(intent)
                             } catch (e: ActivityNotFoundException) {
-                                // log error or take some other action, but it would be very rare for a
-                                // device to have no browser installed
+                                // Handle error if no browser installed
                             }
                         },
                         modifier = Modifier.height(28.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF493266)), // Custom button background color
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF493266)),
                     ) {
                         Text(
                             text = "Buy", color = Color.White, style = textStyle2.copy(
