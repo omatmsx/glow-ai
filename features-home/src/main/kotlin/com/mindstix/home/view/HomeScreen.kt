@@ -131,12 +131,16 @@ fun HomeScreen(
         userIntent.invoke(
             HomeScreenIntent.GetRecommendedMakeupProduct
         )
-        userIntent.invoke(
-            HomeScreenIntent.GetWeatherData
-        )
+        if(!isNotificationLoaded) {
+            isNotificationLoaded = true
+            userIntent.invoke(
+                HomeScreenIntent.GetWeatherData
+            )
+        }
     }
 
-    if (weatherData.isNotEmpty()) {
+    if (weatherData.isNotEmpty() && !isNotificationShown) {
+        isNotificationShown = true
         NotificationHelper(LocalContext.current).sendNotification(weatherData)
     }
 
@@ -362,4 +366,6 @@ fun HomeScreen(
     }
 }
 
+var isNotificationLoaded = false
+var isNotificationShown= false
 
