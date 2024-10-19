@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
-import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
+import com.mindstix.capabilities.util.Constants.DEFAULT_PRODUCT_IMAGE
 import com.mindstix.core.R
 
 
@@ -42,13 +42,7 @@ fun RecommendedMakeUpProductsUI(
     onClick: (RecommendedMakeupProductEntity) -> Unit
 ) {
     val recommendedProductList = recommendedProduct
-    val productImgList = listOf(
-        R.drawable.ic_essikaproduct,
-        R.drawable.ic_productimage,
-        R.drawable.ic_vitaminc,
-        R.drawable.ic_pillogram,
-        R.drawable.ic_minimalist,
-    )
+    val productImgList = DEFAULT_PRODUCT_IMAGE
 
     Column(
         modifier = Modifier
@@ -57,9 +51,12 @@ fun RecommendedMakeUpProductsUI(
     ) {
         // Title
         Text(
-            text = "Makeup Perfectly Matched to Your Skin", fontSize = 18.sp, style = textStyle1.copy(
+            text = "Makeup Perfectly Matched to Your Skin",
+            fontSize = 18.sp,
+            style = textStyle1.copy(
                 fontSize = 20.sp
-            ), modifier = Modifier.padding(bottom = 16.dp)
+            ),
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
         // Horizontal list of products
