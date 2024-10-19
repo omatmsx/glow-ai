@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.core.base.BaseViewModel
@@ -34,6 +35,9 @@ class HomeScreenViewModel @Inject constructor(
         private set
 
     var skinRecommendedProduct = mutableStateOf<List<SkincareProductEntity>>(emptyList())
+        private set
+
+    var recommendedMakeupProduct = mutableStateOf<List<RecommendedMakeupProductEntity>>(emptyList())
         private set
 
     var weatherData = mutableStateOf<String>("")
@@ -74,6 +78,24 @@ class HomeScreenViewModel @Inject constructor(
                         )  // Log the response
                     } catch (e: Exception) {
                         Log.e("Error", "Error fetching skin analyses", e)
+                    } finally {
+                        progressLoader(false)
+                    }
+                }
+            }
+
+            is HomeScreenIntent.GetRecommendedMakeupProduct -> {
+                viewModelScope.launch {
+                    try {
+                        progressLoader(true)
+                        val recommendedProduct =
+                            skinAnalysisUseCase.getListOfRecommendedMakeupProduct() // Await the result
+                        recommendedMakeupProduct.value = recommendedProduct
+                        Log.d(
+                            "skin Recommended make up Product", recommendedProduct.toString()
+                        )  // Log the response
+                    } catch (e: Exception) {
+                        Log.e("Error", "Error fetching make up", e)
                     } finally {
                         progressLoader(false)
                     }

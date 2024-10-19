@@ -30,15 +30,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
 import com.mindstix.core.R
 
 
 @Composable
-fun RecommendedProductsUI(
-    recommendedProduct: List<SkincareProductEntity>,
-    onClick: (SkincareProductEntity) -> Unit
+fun RecommendedMakeUpProductsUI(
+    recommendedProduct: List<RecommendedMakeupProductEntity>,
+    onClick: (RecommendedMakeupProductEntity) -> Unit
 ) {
     val recommendedProductList = recommendedProduct
     val productImgList = listOf(
@@ -56,7 +57,7 @@ fun RecommendedProductsUI(
     ) {
         // Title
         Text(
-            text = "Skincare Products Chosen Just for You", fontSize = 18.sp, style = textStyle1.copy(
+            text = "Makeup Perfectly Matched to Your Skin", fontSize = 18.sp, style = textStyle1.copy(
                 fontSize = 20.sp
             ), modifier = Modifier.padding(bottom = 16.dp)
         )
@@ -68,7 +69,7 @@ fun RecommendedProductsUI(
             // Example of 4 items
             items(recommendedProductList) { item ->
                 val randomImage = remember { productImgList.random() }
-                ProductCard(
+                ProductMakeUpCard(
                     productName = item.productName, productImg = randomImage
                 ) // Replace with your product image resource
                 {
@@ -80,7 +81,7 @@ fun RecommendedProductsUI(
 }
 
 @Composable
-fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () -> Unit) {
+fun ProductMakeUpCard(productName: String, productImg: Int, onQuestionMarkClick: () -> Unit) {
     Card(
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier

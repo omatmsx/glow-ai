@@ -1,5 +1,6 @@
 package com.mindstix.onboarding.usecases
 
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.network.rest.model.WeatherResponse
@@ -20,4 +21,5 @@ interface SkinAnalysisUseCase {
     ): String
 
     suspend fun getRecommendedMakeUpProducts(skinAnalysisEntity: SkinAnalysisEntity)
+    suspend fun getListOfRecommendedMakeupProduct(): List<RecommendedMakeupProductEntity>
 }

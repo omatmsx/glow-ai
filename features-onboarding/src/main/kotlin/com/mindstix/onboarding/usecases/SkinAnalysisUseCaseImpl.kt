@@ -1,5 +1,6 @@
 package com.mindstix.onboarding.usecases
 
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.mapper.SkinAnalysisMapper
@@ -55,6 +56,12 @@ class SkinAnalysisUseCaseImpl @Inject constructor(
 
     override suspend fun getListOfRecommendedProduct(): List<SkincareProductEntity> {
         val response = skinAnalysisRepository.getAllSuggestedProduct()
+        println("response1: $response")
+        return response
+    }
+
+    override suspend fun getListOfRecommendedMakeupProduct(): List<RecommendedMakeupProductEntity> {
+        val response = skinAnalysisRepository.getAllRecommendedMakeupProduct()
         println("response1: $response")
         return response
     }

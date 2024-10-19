@@ -68,6 +68,10 @@ class SkinAnalysisRepository @Inject constructor(
         return skincareProductDao.getAllProducts()
     }
 
+    suspend fun getAllRecommendedMakeupProduct(): List<RecommendedMakeupProductEntity> {
+        return recommendedMakeupProductDao.getAllProducts()
+    }
+
     suspend fun getSkinCareRoutine(data: SkinAnalysisEntity): List<SkinCareRoutineEntity> {
         val convertedData = Gson().toJson(data)
         val response = apiConfig.createChatCompletion(
