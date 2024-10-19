@@ -8,7 +8,7 @@ class SkinCareQueryBuilder {
             use this data 
             $data
             use this data and give me skin care routine for both morning and evening based on this in below structure json only nothing else
-            [{"task":"","time":"morning or evening","whyWeShouldDoIt":""}]
+            [{"task":"","time":"morning or evening","whyWeShouldDoIt":"","productName":"from ESIKA/LBEL/Cyzone companies","whatItContains":""}]
         """.trimIndent()
         }
 

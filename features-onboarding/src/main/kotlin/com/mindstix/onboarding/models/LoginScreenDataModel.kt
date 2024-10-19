@@ -20,7 +20,7 @@ import com.mindstix.core.utils.DataStatus
  * @param passwordValue The default value for the password input.
  * @param loginCtaLabel The label for the login call-to-action button.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 data class LoginScreenDataModel(
     val status: DataStatus = DataStatus.Empty,

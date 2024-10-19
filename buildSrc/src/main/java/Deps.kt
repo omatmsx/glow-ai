@@ -6,7 +6,7 @@
 /**
  * Object containing dependency versions for the project.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 object Deps {
     // Core dependencies

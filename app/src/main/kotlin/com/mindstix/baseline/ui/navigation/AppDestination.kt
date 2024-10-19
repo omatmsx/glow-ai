@@ -25,7 +25,7 @@ import com.mindstix.capabilities.presentation.navigation.ui.BottomNavigationBar
  * It includes the navigation host, bottom app bar, and floating action button based on
  * the state provided by the BaseComponentState.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

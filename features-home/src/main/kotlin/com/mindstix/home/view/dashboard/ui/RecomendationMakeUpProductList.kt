@@ -20,7 +20,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,23 +30,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
 import com.mindstix.core.R
 
 
 @Composable
-fun RecommendedProductsUI(
-    recommendedProduct: List<SkincareProductEntity>, onClick: (SkincareProductEntity) -> Unit
+fun RecommendedMakeUpProductsUI(
+    recommendedProduct: List<RecommendedMakeupProductEntity>,
+    onClick: (RecommendedMakeupProductEntity) -> Unit
 ) {
     val recommendedProductList = recommendedProduct
-    val currentIndex = remember { mutableStateOf(0) }
     val productImgList = listOf(
-        R.drawable.ic_skinfirst,
-        R.drawable.ic_hydratant,
-        R.drawable.ic_concentarte,
-        R.drawable.ic_serium,
-        R.drawable.ic_biorest,
+        R.drawable.ic_essikaproduct,
+        R.drawable.ic_productimage,
+        R.drawable.ic_vitaminc,
+        R.drawable.ic_pillogram,
+        R.drawable.ic_minimalist,
     )
 
     Column(
@@ -57,9 +57,9 @@ fun RecommendedProductsUI(
     ) {
         // Title
         Text(
-            text = "Skincare Products Chosen Just for You", fontSize = 18.sp, style = textStyle1.copy(
+            text = "Makeup Perfectly Matched to Your Skin", fontSize = 18.sp, style = textStyle1.copy(
                 fontSize = 20.sp
-            ), color = Color(0xFF2E1A47), modifier = Modifier.padding(bottom = 16.dp)
+            ), modifier = Modifier.padding(bottom = 16.dp)
         )
 
         // Horizontal list of products
@@ -68,14 +68,8 @@ fun RecommendedProductsUI(
         ) {
             // Example of 4 items
             items(recommendedProductList) { item ->
-                // Get image from the current index
-                val randomImage = remember {
-                    productImgList[currentIndex.value].also {
-                        // Increment the index, and reset it to 0 if we reach the end of the list
-                        currentIndex.value = (currentIndex.value + 1) % productImgList.size
-                    }
-                }
-                ProductCard(
+                val randomImage = remember { productImgList.random() }
+                ProductMakeUpCard(
                     productName = item.productName, productImg = randomImage
                 ) // Replace with your product image resource
                 {
@@ -87,7 +81,7 @@ fun RecommendedProductsUI(
 }
 
 @Composable
-fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () -> Unit) {
+fun ProductMakeUpCard(productName: String, productImg: Int, onQuestionMarkClick: () -> Unit) {
     Card(
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
@@ -111,7 +105,7 @@ fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () ->
                 Image(
                     painter = rememberImagePainter(data = productImg), // Replace with your product image
                     contentDescription = "Product Image",
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(top = 20.dp)
                         .height(100.dp)
@@ -135,14 +129,9 @@ fun ProductCard(productName: String, productImg: Int, onQuestionMarkClick: () ->
 
             // Product Name at the bottom
             Text(
-                text = productName,
-                color = Color(0xFF493266),
-                maxLines = 3,
-                style = textStyle1.copy(
+                text = productName, color = Color.Black, maxLines = 3, style = textStyle1.copy(
                     fontSize = 14.sp
-                ),
-                lineHeight = 14.sp,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                ), lineHeight = 14.sp, modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
     }

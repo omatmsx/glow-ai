@@ -17,7 +17,7 @@ import com.mindstix.capabilities.R
 /**
  * Typography for defining text styles.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 
 

@@ -14,7 +14,7 @@ package com.mindstix.core.utils
  * - [Loading]: Indicates that data is currently being loaded.
  * This is part of the core utility classes in the application.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 enum class DataStatus {
     Empty,

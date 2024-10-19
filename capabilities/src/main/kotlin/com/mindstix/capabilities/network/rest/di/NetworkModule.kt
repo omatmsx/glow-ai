@@ -30,7 +30,7 @@ private const val CONNECT_TIMEOUT = 60L
 /**
  * Dagger Hilt module for providing network-related dependencies.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Module
 @InstallIn(SingletonComponent::class)

@@ -10,7 +10,7 @@ import com.mindstix.capabilities.network.rest.data.GenericErrorModel
 /**
  * A generic class that contains data and status about loading this data Success,Loading and Error.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 data class Resource<out T>(val status: Status, val data: T?, val error: GenericErrorModel?) {
     companion object {

@@ -17,7 +17,7 @@ import java.util.Locale
  * This object provides extension functions for common scenarios involving String, Int, Long,
  * Float, Boolean, and date manipulations.
  *
- * @author Pranav Hadawale
+ * @author Alhaj SIddiqui
  */
 object CommonExtensions {
     /**

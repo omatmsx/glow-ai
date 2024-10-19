@@ -15,7 +15,7 @@ import androidx.compose.runtime.mutableStateOf
  * @param displayBottomNavigationBar Determines whether the bottom navigation bar should be displayed.
  * @param displayFloatingActionButton Determines whether the floating action button should be displayed.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 data class BaseComponentState(
     var displayToolBar: MutableState<Boolean> = mutableStateOf(false),

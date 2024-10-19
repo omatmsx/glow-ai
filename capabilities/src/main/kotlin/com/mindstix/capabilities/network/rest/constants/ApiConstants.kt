@@ -7,7 +7,7 @@ package com.mindstix.capabilities.network.rest.constants
 /**
  * Object containing constants related to API requests.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 object ApiConstants {
     const val HTTP_HEADER_REQUEST_AUTHORIZATION_KEY = "Authorization"

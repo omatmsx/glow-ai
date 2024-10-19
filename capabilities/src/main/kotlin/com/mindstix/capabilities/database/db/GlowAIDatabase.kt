@@ -6,9 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mindstix.capabilities.database.dao.GlowAIDatabaseDao
+import com.mindstix.capabilities.database.dao.RecommendedMakeupProductDao
 import com.mindstix.capabilities.database.dao.SkinAnalysisDao
 import com.mindstix.capabilities.database.dao.SkinCareRoutineDao
 import com.mindstix.capabilities.database.dao.SkincareProductDao
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkinAnalysisEntity
 import com.mindstix.capabilities.database.entities.SkinCareRoutineEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
@@ -23,6 +25,7 @@ import java.util.concurrent.Executors
         SkinAnalysisEntity::class,
         SkinCareRoutineEntity::class,
         SkincareProductEntity::class,
+        RecommendedMakeupProductEntity::class,
     ],
     version = 2,
     exportSchema = false,
@@ -34,6 +37,7 @@ abstract class GlowAIDatabase : RoomDatabase() {
     abstract fun getSkinAnalysisDao(): SkinAnalysisDao
     abstract fun getSkinCareRoutineDao(): SkinCareRoutineDao
     abstract fun getSSkincareProductDao(): SkincareProductDao
+    abstract fun getRecommendedMakeupProductDao(): RecommendedMakeupProductDao
 
     companion object {
         private const val DB_NAME = "GlowAI-Database.db" // Name of the database.

@@ -12,7 +12,7 @@ package com.mindstix.capabilities.network.rest.data
  * @property status The error status.
  * @property errorCode The specific error code.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 data class GenericErrorModel(
     val code: Int = -1,

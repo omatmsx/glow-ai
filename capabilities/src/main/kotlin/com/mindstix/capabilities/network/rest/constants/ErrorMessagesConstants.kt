@@ -7,7 +7,7 @@ package com.mindstix.capabilities.network.rest.constants
 /**
  * Object containing constants for error messages in the network layer.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 object ErrorMessagesConstants {
     const val VERIFICATION_FAILED = "Please contact customer support."

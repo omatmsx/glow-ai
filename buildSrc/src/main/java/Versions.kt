@@ -6,7 +6,7 @@
 /**
  * Object containing dependency version constants for the project.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 object Versions {
     // Core dependencies

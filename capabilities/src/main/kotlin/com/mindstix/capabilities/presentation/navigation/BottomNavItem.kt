@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * @param icon The vector icon representing the item.
  * @param badgeCount The badge count to display on the item (default is 0).
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 data class BottomNavItem(
     val name: String,

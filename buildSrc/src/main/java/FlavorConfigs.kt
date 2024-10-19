@@ -6,7 +6,7 @@
 /**
  * Object containing build time configurations.
  *
- * @author Nirav Patel
+ * @author Alhaj SIddiqui
  */
 object BuildConfig {
     // Android build configuration

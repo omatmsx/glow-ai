@@ -14,7 +14,7 @@ import com.mindstix.onboarding.models.OfflineScreenDataModel
 /**
  * Sealed class representing user intents for the login feature.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 sealed class LoginIntent : UserIntent {
     object FetchLoginData : LoginIntent()
@@ -24,7 +24,7 @@ sealed class LoginIntent : UserIntent {
 /**
  * Sealed class representing navigation effects for the login feature.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 sealed class LoginNavEffect : NavEffect {
     object CloseLoginScreen : LoginNavEffect()
@@ -35,7 +35,7 @@ sealed class LoginNavEffect : NavEffect {
 /**
  * Sealed class representing different view states for the login feature.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 sealed class LoginViewStates {
     /**

@@ -12,7 +12,7 @@ import android.net.ConnectivityManager
 /**
  * This class checks if the network is available or not and returns true/false.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager?

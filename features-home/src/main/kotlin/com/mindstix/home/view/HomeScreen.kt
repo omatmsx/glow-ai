@@ -36,12 +36,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mindstix.capabilities.database.entities.RecommendedMakeupProductEntity
 import com.mindstix.capabilities.database.entities.SkincareProductEntity
 import com.mindstix.capabilities.presentation.theme.textStyle1
 import com.mindstix.capabilities.presentation.theme.textStyle2
+import com.mindstix.capabilities.util.Constants.DEFAULT_LIST_URLS
 import com.mindstix.home.intent.HomeScreenIntent
 import com.mindstix.home.view.dashboard.modal.SkinAnalysisEntityDataModal
 import com.mindstix.home.view.dashboard.ui.DiagnosisList
+import com.mindstix.home.view.dashboard.ui.RecommendedMakeUpProductsUI
 import com.mindstix.home.view.dashboard.ui.RecommendedProductsUI
 import com.mindstix.home.view.dashboard.ui.SkinAnalysisUI
 import com.mindstix.home.viewmodel.HomeScreenViewModel
@@ -100,13 +103,7 @@ fun HomeScreen(
 
     val recommendedProduct by homeScreenViewModel.skinRecommendedProduct
     val currentIndex = remember { mutableStateOf(0) }
-    val buyNowUrls = listOf(
-        "https://cyzone.tiendabelcorp.cl/contorno-de-ojos-eye-detox-skin-first/p",
-        "https://lbel.tiendabelcorp.cl/set-acido-hialuronico-retinol/p",
-        "https://lbel.tiendabelcorp.cl/set-nocturne-rostro-y-ojos-cl/p",
-        "https://lbel.tiendabelcorp.cl/concentre-total-rostro-crema-antiedad-cc/p",
-        "https://lbel.tiendabelcorp.cl/botanology-locion-hidratante-corporal-400-ml/p"
-    )
+    val buyNowUrls = DEFAULT_LIST_URLS
 
     val randomUrl = remember {
         buyNowUrls[currentIndex.value].also {
@@ -114,12 +111,17 @@ fun HomeScreen(
             currentIndex.value = (currentIndex.value + 1) % buyNowUrls.size
         }
     }
+    val recommendedMakeupProduct by homeScreenViewModel.recommendedMakeupProduct
+
     LaunchedEffect(true) {
         userIntent.invoke(
             HomeScreenIntent.GetSkinAnalysisData
         )
         userIntent.invoke(
             HomeScreenIntent.GetRecommendedProducts
+        )
+        userIntent.invoke(
+            HomeScreenIntent.GetRecommendedMakeupProduct
         )
         userIntent.invoke(
             HomeScreenIntent.GetWeatherData
@@ -134,6 +136,7 @@ fun HomeScreen(
     var showDialog by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf<SkincareProductEntity?>(null) }
     val context = LocalContext.current
+    var selectedMakeUpItem by remember { mutableStateOf<RecommendedMakeupProductEntity?>(null) }
 
     if (showDialog && selectedItem != null) {
         // Display the dialog
@@ -229,6 +232,79 @@ fun HomeScreen(
                 })
         }
     }
+    if (showDialog && selectedMakeUpItem != null) {
+        // Display the dialog
+        Box(
+            modifier = Modifier.fillMaxSize(), // Fills the entire available space
+            contentAlignment = Alignment.Center
+        ) // Centers the content within the Box
+        {
+            AlertDialog(modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .wrapContentSize(),
+                containerColor = Color.White,
+                onDismissRequest = { showDialog = false },
+                title = {
+                    Text(
+                        text = "Item Details", color = Color.Black, style = textStyle1.copy(
+                            fontSize = 18.sp, fontWeight = FontWeight.Medium
+                        ), lineHeight = 16.sp, modifier = Modifier.padding(top = 5.dp)
+                    )
+                },
+                text = {
+                    // You can access the selected item's properties here
+                    Column {
+                        Text(
+                            text = "What it contains",
+                            color = Color.Black,
+                            maxLines = 3,
+                            style = textStyle1.copy(
+                                fontSize = 16.sp
+                            ),
+                            lineHeight = 16.sp,
+                        )
+                        Text(
+                            text = "* ${selectedMakeUpItem?.whatItContains}",
+                            color = Color.Gray,
+                            maxLines = 3,
+                            style = textStyle1.copy(
+                                fontSize = 14.sp
+                            ),
+                            lineHeight = 14.sp,
+                        )
+
+                        Text(
+                            text = "Why you should use this",
+                            color = Color.Black,
+                            maxLines = 3,
+                            style = textStyle1.copy(
+                                fontSize = 16.sp
+                            ),
+                            lineHeight = 16.sp,
+                            modifier = Modifier.padding(top = 10.dp)
+                        )
+                        Text(
+                            text = "* ${selectedMakeUpItem?.whyWeShouldDoIt}",
+                            color = Color.Gray,
+                            maxLines = 3,
+                            style = textStyle1.copy(
+                                fontSize = 14.sp
+                            ),
+                            lineHeight = 14.sp,
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = { showDialog = false }) {
+                        Text(
+                            text = "OK", color = Color.Black, style = textStyle2.copy(
+                                fontSize = 14.sp
+                            ), lineHeight = 14.sp
+                        )
+                    }
+                })
+        }
+    }
 
     LazyColumn(
         verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()
@@ -243,6 +319,12 @@ fun HomeScreen(
         item {
             RecommendedProductsUI(recommendedProduct) {
                 selectedItem = it
+                showDialog = true
+            }
+        }
+        item {
+            RecommendedMakeUpProductsUI(recommendedMakeupProduct) {
+                selectedMakeUpItem = it
                 showDialog = true
             }
         }

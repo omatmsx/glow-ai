@@ -25,7 +25,7 @@ import com.mindstix.onboarding.utils.SharedPreferenceManager
  * @param navController The NavHostController responsible for navigating between destinations.
  * @param baseComponentState The base component state that affects the app component's visibility behavior.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Composable
 fun NavigationHost(

@@ -27,7 +27,7 @@ import com.mindstix.capabilities.presentation.theme.md_theme_light_primary
  * @param size Size of the circular progress bar.
  * @param strokeWidth Width of the circular progress bar's stroke.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @Composable
 fun CircularProgressBar(

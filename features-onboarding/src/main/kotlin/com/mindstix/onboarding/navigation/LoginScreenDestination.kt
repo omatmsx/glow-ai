@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.Flow
  * @param navEffect Flow representing navigation effects from the Login Screen.
  * @param navController The navigation controller for handling navigation actions.
  *
- * @author Abhijeet Kokane
+ * @author Alhaj SIddiqui
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

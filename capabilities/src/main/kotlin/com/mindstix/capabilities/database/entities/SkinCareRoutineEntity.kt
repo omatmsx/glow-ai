@@ -9,5 +9,7 @@ data class SkinCareRoutineEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0, // Primary key for the database
     @SerializedName("task") val task: String,
     @SerializedName("time") val time: String,
-    @SerializedName("whyWeShouldDoIt") val whyWeShouldDoIt: String
+    @SerializedName("whyWeShouldDoIt") val whyWeShouldDoIt: String,
+    @SerializedName("productName") val productName: String,
+    @SerializedName("whatItContains") val whatItContains: String,
 )

@@ -22,7 +22,7 @@ import java.util.Locale
  * This class contains utility functions related to network connectivity, default values,
  * string manipulation, date handling, URL operations, and locale handling.
  *
- * @author Pranav Hadawale
+ * @author Alhaj SIddiqui
  */
 object CommonUtils {
     /**

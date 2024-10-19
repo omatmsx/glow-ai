@@ -39,7 +39,7 @@ import com.mindstix.onboarding.intents.LoginViewStates
  * @param keyboardController The software keyboard controller.
  * @param userIntent A function to handle user intents related to the Login Screen.
  *
- * @author Abhijeet Kokane, Asim Shah
+ * @author Alhaj SIddiqui
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

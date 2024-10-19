@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * The @AndroidEntryPoint annotation is used to indicate that Hilt should be used for
  * dependency injection in this Activity.
  *
- * @author Vidurraje Deshmukh
+ * @author Alhaj SIddiqui
  */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
